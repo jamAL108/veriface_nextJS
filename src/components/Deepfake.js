@@ -16,7 +16,17 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ColorRing } from "react-loader-spinner";
 import { useToast } from "@/components/ui/use-toast";
-import ytdl from "ytdl-core";
+import Image from "next/image";
+import { RotateCcw, Copy, Loader2 } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const Deepfake = () => {
   const { toast } = useToast();
@@ -40,6 +50,7 @@ const Deepfake = () => {
   const [URL, setURL] = useState("");
   const [getURLOpen, setGetURLOpen] = useState(false);
   const [loadURLFetch, setLoadURLFetch] = useState(false);
+  const [linkName, setlinkName] = useState("youtube");
 
   useEffect(() => {
     console.log(video);
@@ -141,7 +152,7 @@ const Deepfake = () => {
             } else if (window.innerWidth < 400) {
               element3.style.height = "220px";
             }
-            element3.style.borderRadius = "35px";
+            element3.style.borderRadius = "25px";
             element3.style.border = `5px solid ${color_code[msg.code]}`;
             setreaction(msg.code);
 
@@ -218,15 +229,19 @@ const Deepfake = () => {
         return;
       }
 
-      const response  = await fetch("http://localhost:5000/youtube-proxy", {
+      const response = await fetch("http://localhost:5000/getvideofromlink", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ video_url: URL }),
+        body: JSON.stringify({ video_url: URL, linkFrom: linkName }),
       });
       if (!response.ok) {
-        throw new Error("Failed to fetch video stream");
+        toast({
+          variant: "destructive",
+          title: "Server Error",
+          description: "There is a issue in server",
+        });
       }
       const videoBlob = await response.blob();
       const videoUrlObject = window.URL.createObjectURL(videoBlob);
@@ -244,15 +259,18 @@ const Deepfake = () => {
   };
 
   return (
-    <div className="deepfake  !w-[min(1400px , 85vw)]">
-      <div className="left" id="left">
+    <div className="deepfake  !w-[min(1900px , 85vw)]  flex justify-center items-center">
+      <div
+        className="left h-full gap-[45px] flex flex-col justify-center items-center w-[45%] "
+        id="left"
+      >
         {videoUrl ? (
           <motion.video
             initial={{ scale: 0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="videowala"
+            className="videowala relative opacity-1 !w-[500px] rounded-lg !h-[300px] object-cover z-1 mt-[0]"
           >
             <source src={videoUrl} type="video/mp4" />
             {/* Your browser does not support the video tag. */}
@@ -260,7 +278,7 @@ const Deepfake = () => {
         ) : (
           <div
             id="helloo"
-            className="mt-[1.4rem]  mr-0 w-[60%] h-[40%] z-[1000] 
+            className="w-[500px] !h-[300px] z-[1000] 
           border-[3px] border-dashed border-primary/10 rounded-lg flex justify-center items-center flex-col text-[0.9rem] !bg-muted/80"
             onClick={(e) => {
               e.preventDefault();
@@ -282,7 +300,7 @@ const Deepfake = () => {
           </div>
         )}
         {reaction !== -1 && (
-          <div className="mt">
+          <div className="w-[550px] z-[10000]  h-[100px] flex justify-end mt-[-100px] mr-[-75px]">
             <img src={arr_emoji[0]} alt="fv" className="react" />
           </div>
         )}
@@ -291,62 +309,114 @@ const Deepfake = () => {
         </div>
         {reaction === -1 && (
           <div
-            className="mt-[1.4rem] mr-0 w-[60%] h-[40%] z-[100] 
+            className="w-[500px] !h-[300px] z-[100] 
           border-[3px] border-dashed border-primary/10 rounded-lg flex justify-center items-center flex-col text-[0.9rem] !bg-muted/80"
           >
             <p>Result will be displayed here.</p>
           </div>
         )}
         {result && (
-          <motion.div
-            className="result"
+          <motion.Card
             initial={{ scale: 0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
+            className="overflow-hidden w-[500px] border rounded-lg mt-[-48px]"
+            x-chunk="dashboard-05-chunk-4"
           >
-            <h2
-              style={
-                result.Faces === 0
-                  ? { color: "#ff3333", opacity: 1 }
-                  : { fontSize: "1.3rem" }
-              }
-            >
-              {result.message}
-            </h2>
-            <table className="bottom">
-              <tr>
-                <td>Total Frames in Video</td>
-                <td>{result.Frames}</td>
-              </tr>
-              <tr>
-                <td>Total Faces in those frames</td>
-                <td>{result.Faces}</td>
-              </tr>
-              <tr>
-                <td>Total Deepfake Faces %</td>
-                <td>{result.Deepfake.toFixed(2)}%</td>
-              </tr>
-              <tr>
-                <td>Total Real Faces %</td>
-                <td>{result.Real.toFixed(2)}%</td>
-              </tr>
-            </table>
-
-            {/* </div> */}
-          </motion.div>
+            <CardHeader className="flex flex-row items-start bg-muted/50">
+              <div className="grid gap-1.5">
+                <CardTitle
+                  className="group flex items-center gap-2 text-lg w-full text-[0.96rem] leading-[20px]"
+                  style={
+                    result.Faces === 0
+                      ? { color: "#ff3333", opacity: 1 }
+                      : { fontSize: "1.3rem" }
+                  }
+                >
+                  {result.message}
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                  >
+                    <Copy className="h-3 w-3" />
+                    <span className="sr-only">copy</span>
+                  </Button>
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  As Veriface is in beta, the results aren't absolute truth ,
+                  don't consider this as an evidence.
+                </CardDescription>
+              </div>
+              <div className="ml-auto flex items-center gap-1">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setresult(null);
+                    API(video);
+                    setflag(true);
+                    setreaction(-1);
+                  }}
+                  className="h-8 gap-1"
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                  <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
+                    Retry
+                  </span>
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="p-6 text-sm bg-card">
+              <div className="grid gap-3">
+                <div className="font-semibold">Details</div>
+                <ul className="grid gap-3">
+                  <li className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Total Frames</span>
+                    <span>{result.Frames}</span>
+                  </li>
+                  <li className="flex items-center justify-between">
+                    <span className="text-muted-foreground">
+                      Total Faces in those frames
+                    </span>
+                    <span>{result.Faces}</span>
+                  </li>
+                </ul>
+                <Separator className="my-2" />
+                <ul className="grid gap-3">
+                  <li className="flex items-center justify-between">
+                    <span className="text-muted-foreground">
+                      Total Deepfake Faces %
+                    </span>
+                    <span>{result.Deepfake.toFixed(2)}%</span>
+                  </li>
+                  <li className="flex items-center justify-between">
+                    <span className="text-muted-foreground">
+                      Total Real Faces %
+                    </span>
+                    <span>{result.Real.toFixed(2)}%</span>
+                  </li>
+                </ul>
+              </div>
+            </CardContent>
+          </motion.Card>
         )}
       </div>
 
-      <div className="right">
-        <div className="disc">
-          <p>
-            Veriface aims to give an opinion about the scanned video and is not
-            responsible for the result. As Veriface is still in beta, the
-            results should not be treated as an absolute truth or evidence.
-          </p>
+      <div className="right min-w-[45%] w-[45%] h-full relative flex flex-col justify-center items-center gap-[100px] ">
+        <div className="w-full flex justify-center items-center">
+          <div className="h-[140px] w-[55%] px-[15px] py-[10px] bg-muted/80 border-dashed border-[3px] border-primary/10 rounded-lg flex justify-center items-center opacity-[0.5] ">
+            <p className="text-xs text-center">
+              Veriface aims to give an opinion about the scanned video and is
+              not responsible for the result. As Veriface is still in beta, the
+              results should not be treated as an absolute truth or evidence.
+            </p>
+          </div>
         </div>
-        <div className="box bg-card !border-[2px] rounded-md">
+
+        <div className="box !w-[400px] h-[50%] flex justify-evenly flex-col items-center mt-[-30px] bg-card !border-[2px] rounded-3xl">
           <motion.div
             className="up !gap-5"
             initial={{ scale: 0 }}
@@ -354,7 +424,7 @@ const Deepfake = () => {
             whileInView={{ opacity: 1, scale: 1 }}
           >
             <Button
-              className="px-[35px] py-[25px] rounded-[30px] text-[1.15rem] transition duration-300 ease hover:scale-110"
+              className="px-[35px] py-[25px] rounded-[30px] text-[1.15rem] transition duration-300 ease hover:scale-105"
               id="uploaduu"
               onClick={(e) => {
                 e.preventDefault();
@@ -392,7 +462,8 @@ const Deepfake = () => {
                 <DialogHeader>
                   <DialogTitle>Enter Video URL</DialogTitle>
                   <DialogDescription>
-                    Make sure to upload a link which is public to everyone.
+                    Make sure to upload a link which is public to everyone. and
+                    size ot more than 30 mb.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
@@ -408,23 +479,68 @@ const Deepfake = () => {
                     />
                   </div>
                 </div>
-                <DialogFooter>
+                <DialogFooter className="gap-[25px]">
+                  <div className="flex justify-center items-center gap-[18px]">
+                    <div
+                      className={` ${
+                        linkName === "youtube"
+                          ? "border-[5px] border-primary"
+                          : "border-none"
+                      } rounded-full  `}
+                    >
+                      <Image
+                        onClick={(e) => setlinkName("youtube")}
+                        src="/images/youtube.png"
+                        alt="youtube"
+                        width={34}
+                        height={34}
+                        className={`rounded-full cursor-pointer`}
+                      />
+                    </div>
+                    <div
+                      className={` ${
+                        linkName === "drive"
+                          ? "border-[5px] border-primary"
+                          : "border-none"
+                      } rounded-full  `}
+                    >
+                      <Image
+                        onClick={(e) => setlinkName("drive")}
+                        src="/images/drive.jpeg"
+                        alt="drive"
+                        width={34}
+                        height={34}
+                        className={`rounded-full cursor-pointer`}
+                      />
+                    </div>
+                    <div
+                      className={` ${
+                        linkName === "insta"
+                          ? "border-[5px] border-primary"
+                          : "border-none"
+                      } rounded-full  `}
+                    >
+                      <Image
+                        onClick={(e) => setlinkName("insta")}
+                        src="/images/insta.jpeg"
+                        alt="insta"
+                        width={34}
+                        height={34}
+                        className={`rounded-full  cursor-pointer`}
+                      />
+                    </div>
+                  </div>
                   <Button
-                    className="flex justify-center items-center gap-3"
+                    disabled={loadURLFetch}
+                    className="flex justify-center items-center gap-1"
                     onClick={(e) => {
                       e.preventDefault();
                       URLFetch();
                     }}
                   >
-                    <ColorRing
-                      visible={loadURLFetch}
-                      height="25"
-                      width="25"
-                      ariaLabel="color-ring-loading"
-                      wrapperStyle={{}}
-                      wrapperClass="color-ring-wrapper"
-                      colors={["#fff", "#fff", "#fff", "#fff", "#fff"]}
-                    />
+                    {loadURLFetch === true && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Upload
                   </Button>
                 </DialogFooter>
@@ -438,7 +554,8 @@ const Deepfake = () => {
             whileInView={{ opacity: 1, scale: 1 }}
           >
             {api === false && (
-              <button
+              <Button
+                className="w-[45%] h-[38px] rounded-[30px] text-[1.05rem] transition duration-500 ease hover:scale-105"
                 onClick={(e) => {
                   e.preventDefault();
                   API(video);
@@ -450,14 +567,33 @@ const Deepfake = () => {
                 }}
               >
                 Detect Video
-              </button>
+              </Button>
             )}
             {api === true && (
               <>
                 <p>This may take a few Seconds....</p>
                 <p>Estimated Time: 30-40 sec</p>
-                <button
-                  className="cancel"
+
+                {/* .deepfake .right .box .down .cancel {
+  margin-top: 2rem;
+  width: 40%;
+  height: 40px;
+  border-radius: 30px;
+  border: 1.5px solid #0272ff;
+  background-color: transparent;
+  color: #0272ff;
+  font-size: 1.15rem;
+  transition: 0.6s ease;
+}
+.deepfake .right .box .down .cancel:hover {
+  background-color: #0272ff;
+  cursor: pointer;
+  color: white;
+  transform: scale(1.04);
+} */}
+                <Button 
+                  variant="outline"
+                  className="mt-[2rem] w-[40%] rounded-[30px] border-[1.5px] bg-transparent border-primary text-primary text-[1.15rem] transition duration-500 ease hover:bg-primary hover:text-white"
                   onClick={(e) => {
                     e.preventDefault();
                     cancelrequest();
@@ -471,7 +607,7 @@ const Deepfake = () => {
                   }}
                 >
                   Cancel
-                </button>
+                </Button>
               </>
             )}
           </motion.div>

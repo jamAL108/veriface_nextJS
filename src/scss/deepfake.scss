@@ -1,56 +1,14 @@
-body {
-  user-select: none;
-}
+// body {
+//   // user-select: none;
+// }
 .deepfake {
-  width: 100vw;
+  // width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 }
-.deepfake .right {
-  width: 40%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.deepfake .left {
-  width: 60%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-}
-.deepfake .left video {
-  position: relative;
-  opacity: 1 !important;
-  width: 60%;
-  height: 280px;
-  object-fit: cover;
-  z-index: 1;
-  margin-top: 0%;
-}
-
-// .deepfake .left #helloo {
-//   margin-top: 0%;
-//   margin-right: 0%;
-//   width: 60%;
-//   height: 280px;
-//   z-index: 1000;
-//   border: 3px dashed #bec0da;
-//   margin-bottom: 1rem;
-//   background-color: #efeef3;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-//   opacity: 0.6;
-//   transition: 0.3s ease;
-// }
 .deepfake .left #helloo:hover {
   cursor: pointer;
 }
@@ -58,13 +16,6 @@ body {
   transform: scale(1.1);
 }
 
-// .deepfake .left #helloo p {
-//   margin-bottom: 0.3rem;
-//   margin-top: 0.3rem;
-//   font-size: 0.9rem;
-//   opacity: 0.8;
-//   transition: 0.3s ease-in;
-// }
 .deepfake .left .skel {
   margin-top: 1.4rem;
   margin-right: 0%;
@@ -82,11 +33,11 @@ body {
 }
 
 .deepfake .left .image {
-  margin-top: -280px;
+  margin-top: -345px;
   margin-right: 0%;
   transition: 2s ease;
-  width: 60%;
-  height: 46%;
+  width: 500px;
+  height: 300px;
   z-index: 100;
 }
 .deepfake .left .img {
@@ -95,6 +46,9 @@ body {
   animation: increaseWidth 8s linear;
   object-fit: cover;
 }
+
+
+
 .deepfake .left .mt {
   width: 65%;
   height: 46%;
@@ -104,46 +58,14 @@ body {
   margin-top: -90px;
   margin-right: -90px;
 }
+
 .deepfake .left .react {
   z-index: 100;
   width: 140px;
   height: 130px;
 }
-// ( 173, 216, 230, 0.2 )
-// (2,114,255)
-.deepfake .left .result {
-  position: relative;
-  width: 62%;
-  height: 68%;
-  margin-bottom: 18px;
-  border-radius: 14px;
-  background: radial-gradient(
-    30% 30% at top right,
-    transparent 55%,
-    RGBA(2, 114, 255, 0.08) 51%
-  );
-  // box-shadow: 0px 1px 13px -2px rgba(173,216,230,0.24);
-  box-shadow: 0px 0px 9px -1px rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
 
-.deepfake .left .result h2 {
-  width: 85%;
-  height: 25%;
-  margin: 0;
-  font-size: 0.96rem;
-  margin-left: 10px;
-  margin-top: 10px;
-  line-height: 20px;
-  opacity: 0.73;
-  margin-left: -50px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
+
 .deepfake .left .result .bottom {
   width: 95%;
   height: 70%;
@@ -175,18 +97,7 @@ th {
   color: white;
 }
 
-.deepfake .left .result::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  right: -7%;
-  width: 110px; /* Adjust the size to control the shadow size */
-  height: 100px; /* Adjust the size to control the shadow size */
-  background: white; /* Shadow color with opacity */
-  border-bottom-left-radius: 50%;
-  // border-radius: 50%;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0); /* Create a box shadow for the top-left corner */
-}
+
 
 .blink {
   animation: blink 2s 4;
@@ -250,11 +161,11 @@ th {
   }
 }
 
-.deepfake .right {
-  flex-direction: column;
-  gap: 1.5rem;
-  justify-content: flex-start;
-}
+// .deepfake .right {
+//   // flex-direction: column;
+//   // gap: 1.5rem;
+//   // justify-content: flex-start;
+// }
 
 .deepfake .right .disc {
   height: 25%;
@@ -276,17 +187,8 @@ th {
 }
 
 .deepfake .right .box {
-  margin-left: -250px;
-  min-width: 65%;
-  width: 65%;
-  height: 50%;
-  border-radius: 30px;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #55555500),
     var(--tw-ring-shadow, 0 0 #55555500), 0px 0px 50px rgba(69, 69, 69, 0.1);
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
 }
 .deepfake .right .box .up {
   width: 100%;
@@ -321,44 +223,12 @@ th {
   width: 90%;
   height: 20px;
 }
-.deepfake .right .box .down button {
-  width: 50%;
-  height: 40px;
-  border-radius: 30px;
-  background-color: #0272ff;
-  color: white;
-  border: none;
-  font-size: 1.15rem;
-  transition: 0.6s ease;
-}
-
-.deepfake .right .box .down button:hover {
-  background-color: #0249b3;
-  cursor: pointer;
-  transform: scale(1.04);
-}
 
 .deepfake .right .box .down p {
   margin: 0;
   font-size: 0.9rem;
 }
-.deepfake .right .box .down .cancel {
-  margin-top: 2rem;
-  width: 40%;
-  height: 40px;
-  border-radius: 30px;
-  border: 1.5px solid #0272ff;
-  background-color: transparent;
-  color: #0272ff;
-  font-size: 1.15rem;
-  transition: 0.6s ease;
-}
-.deepfake .right .box .down .cancel:hover {
-  background-color: #0272ff;
-  cursor: pointer;
-  color: white;
-  transform: scale(1.04);
-}
+
 .deepfake .ploy {
   position: absolute;
   top: 46%;
@@ -493,20 +363,20 @@ th {
     opacity: 0.6;
   }
 
-  .deepfake .left .result {
-    position: relative;
-    width: 90%;
-    min-height: calc(100% - 300px);
-    height: calc(100% - 300px);
-    border-radius: 14px;
-    background: rgba(2, 114, 255, 0.08);
-    box-shadow: 0px 0px 9px -1px rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 1.4rem;
-  }
+  // .deepfake .left .result {
+  //   // position: relative;
+  //   // width: 90%;
+  //   // min-height: calc(100% - 300px);
+  //   // height: calc(100% - 300px);
+  //   // border-radius: 14px;
+  //   // background: rgba(2, 114, 255, 0.08);
+  //   // box-shadow: 0px 0px 9px -1px rgba(0, 0, 0, 0.4);
+  //   // display: flex;
+  //   // justify-content: center;
+  //   // align-items: center;
+  //   // flex-direction: column;
+  //   // margin-top: 1.4rem;
+  // }
 
   .deepfake .left .result h2 {
     width: 85%;
@@ -552,21 +422,6 @@ th {
     background-color: #333;
     color: white;
   }
-
-  .deepfake .left .result::before {
-    content: "vddf dff ";
-    position: absolute;
-    display: none;
-    top: -20%;
-    right: -7%;
-    width: 110px; /* Adjust the size to control the shadow size */
-    height: 100px; /* Adjust the size to control the shadow size */
-    background: white; /* Shadow color with opacity */
-    border-bottom-left-radius: 50%;
-    // border-radius: 50%;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0); /* Create a box shadow for the top-left corner */
-  }
-
   .blink {
     animation: blink 2s 4;
   }
@@ -683,23 +538,6 @@ th {
   .deepfake .right .box .down p {
     margin: 0;
     font-size: 0.9rem;
-  }
-  .deepfake .right .box .down .cancel {
-    margin-top: 2rem;
-    width: 40%;
-    height: 40px;
-    border-radius: 30px;
-    border: 1.5px solid #0272ff;
-    background-color: transparent;
-    color: #0272ff;
-    font-size: 1.15rem;
-    transition: 0.6s ease;
-  }
-  .deepfake .right .box .down .cancel:hover {
-    background-color: #0272ff;
-    cursor: pointer;
-    color: white;
-    transform: scale(1.04);
   }
   .deepfake .ploy {
     position: absolute;
@@ -902,19 +740,7 @@ th {
     color: white;
   }
 
-  .deepfake .left .result::before {
-    content: "vddf dff ";
-    display: none;
-    position: absolute;
-    top: -20%;
-    right: -7%;
-    width: 110px; /* Adjust the size to control the shadow size */
-    height: 100px; /* Adjust the size to control the shadow size */
-    background: white; /* Shadow color with opacity */
-    border-bottom-left-radius: 50%;
-    // border-radius: 50%;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0); /* Create a box shadow for the top-left corner */
-  }
+
 
   .blink {
     animation: blink 2s 4;
@@ -1034,24 +860,7 @@ th {
     margin: 0;
     font-size: 0.95rem;
   }
-  .deepfake .right .box .down .cancel {
-    margin-top: 0rem;
-    width: 40%;
-    height: 150px !important;
-    border: 1px solid red;
-    border-radius: 10px;
-    border: 1.5px solid #0272ff;
-    background-color: transparent;
-    color: #0272ff;
-    font-size: 1.15rem;
-    transition: 0.6s ease;
-  }
-  .deepfake .right .box .down .cancel:hover {
-    background-color: #0272ff;
-    cursor: pointer;
-    color: white;
-    transform: scale(1.04);
-  }
+
   .deepfake .ploy {
     position: absolute;
     top: 74%;
