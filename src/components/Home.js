@@ -1,28 +1,35 @@
-'use client';
+"use client";
 import React from "react";
 import "../scss/Home.scss";
 import Scroll from "../utils/scroll";
+import Navbar from "@/components/Navbar";
+import { Button } from "./ui/button";
+import { ArrowDown } from 'lucide-react';
 const Home = () => {
   return (
     <div className="home  !w-[min(1400px , 85vw)]">
-      <div className="left">
-        <img src='./images/Home-front1.png' alt="" />
-      </div>
-      <div className="right">
-        <div className="content">
-          <h1>Veriface a Deepfake detector </h1>
-          <h1 className="below">
-            You Deserve the <span>Truth</span>
+      <Navbar />
+      <div className="w-[80%] h-[calc(100vh_-_4rem)] flex flex-col py-[130px] gap-[40px]">
+        <div className="flex flex-col gap-[27px]">
+          <h1 className="text-5xl font-[600]">
+            Spot the Fake, Protect the Truth.
           </h1>
-          <h2>Unmasking Truth in a Deepfake World !</h2>
-          <p>
-            Utilizing eye blinking, facial expressions, and lip syncing as key
-            indicators to identify deepfakes, enhancing precision in detecting
-            synthetic media content.
+          <p className="text-4xl  w-[80%] font-[600] text-[#838383] leading-[45px]">
+            Utilizes eye <span className="text-primary">blinking</span>, facial{" "}
+            <span className="text-primary">expressions</span>, and lip{" "}
+            <span className="text-primary">syncing</span> as key indicators to
+            identify deepfakes, Enhances Precision, Detect Deepfakes.
           </p>
-          <button onClick={(e) => Scroll("deepfake")}>
-            Start Video Detection
-          </button>
+        </div>
+        <div className="flex items-center gap-[50px]">
+          <Button
+            className="bg-white text-primary text-md hover:bg-white rounded-[30px] min-w-[150px] 
+          py-[18px] px-[10px] max-w-[160px] min-h-[50px] max-h-auto hover:bg-primary hover:text-white transition duration-200 ease "
+            onClick={(e) => Scroll("deepfake")}
+          >
+            Get Started
+          </Button>
+          <h2 className="text-[#838383] flex hover:text-primary cursor-pointer items-center justify-center gap-2">Learn more <ArrowDown size={20}/></h2>
         </div>
       </div>
     </div>

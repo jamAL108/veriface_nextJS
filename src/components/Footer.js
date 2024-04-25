@@ -4,7 +4,7 @@ import { FaFacebook, FaGithub, FaTwitter } from "react-icons/fa";
 import { motion } from "framer-motion";
 const footer = () => {
   return (
-    <div className="footer  !w-[min(1400px , 85vw)]">
+    <div className="footer !text-white !bg-muted !w-[min(1400px , 85vw)]">
       <div className="up">
         <motion.div
           className="left"
@@ -17,19 +17,19 @@ const footer = () => {
           <h5>You can find us on any of these platforms</h5>
           <div className="links">
             <button type="button" aria-label="Twitter Link">
-              <a href="https://www.twitter.com/jamal_twts">
-                <FaTwitter className="icon" aria-label="Twitter Link" />
+              <a href="https://www.twitter.com/jamal_twts" className="flex justify-center items-center">
+                <FaTwitter  color="black" size={30} aria-label="Twitter Link" />
               </a>
             </button>
             <button type="button" aria-label="Facebook Link">
-              <a href="https://www.facebook.com">
-                <FaFacebook className="icon" aria-label="Facebook Link" />
+              <a href="https://www.facebook.com" className="flex justify-center items-center">
+                <FaFacebook color="black" size={30} aria-label="Facebook Link" />
               </a>
             </button>
 
             <button aria-label="Github Link" type="button">
-              <a href="http://www.github.com/jamal108">
-                <FaGithub className="icon" aria-label="Github Link" />
+              <a href="http://www.github.com/jamal108" className="flex justify-center items-center">
+                <FaGithub  color="black" size={30} aria-label="Github Link" />
               </a>
             </button>
           </div>
@@ -77,7 +77,7 @@ const footer = () => {
         transition={{ duration: 1.3, type: "Spring", bounce: 0.4 }}
       >
         <div className="text">
-          Copyright © {new Date().getFullYear()} VeriFace | Built using Reactjs
+          Copyright © {new Date().getFullYear()} VeriFace | Built using NextJS
           and Tensorflow
         </div>
       </motion.div>

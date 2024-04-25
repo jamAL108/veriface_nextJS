@@ -9,6 +9,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 import Quiz from "../utils/quiz";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Button } from "@/components/ui/button";
 // import { ColorRing } from "react-loader-spinner";
 
 const Games = () => {
@@ -37,7 +38,6 @@ const Games = () => {
   const edarr = ["Celebrity Edition", "Politician Edition", "Random YT Video"];
   useEffect(() => {
     if (flag === true) {
-      document.body.style.backgroundColor = "#605e5e";
       document.body.style.overflowY = "hidden";
       document.body.style.overflowX = "hidden";
       const temp = game.current;
@@ -122,14 +122,14 @@ const Games = () => {
   }
 
   return (
-    <div className="games  !w-[min(1400px , 85vw)]" ref={game}>
+    <div className="games bg-accent !w-[min(1400px , 85vw)]" ref={game}>
       <motion.h2
         initial={{ opacity: 0, x: -150 }}
         viewport={{ once: true }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, type: "Spring", bounce: 0.4 }}
       >
-        DeepFake challenge
+        <h1 className="text-2xl px-[20px] py-[20px]">DeepFake challenge</h1>
       </motion.h2>
       <div className="play">
         {idxx > 0 && (
@@ -141,16 +141,17 @@ const Games = () => {
             }}
           />
         )}
-        <div className="card">
+        <div className="card bg-card border-[0.5px]">
           {Quiz.map((item, idx) => (
-            <div className="boxu" id={`boxu${idx}`} key={idx}>
+            <div className="boxu bg-card" id={`boxu${idx}`} key={idx}>
               <img src={item.cover} alt="ef" />
-              <div className="theory">
+              <div className="theory gap-2">
                 <p>
-                  {item.heading} <span>{item.context}.</span>
+                  {item.heading} <span className="text-primary">{item.context}.</span>
                 </p>
                 <p>{item.focus}.</p>
-                <button
+                <Button 
+                className="min-w-[80px] px-[15px]  py-[4px]"
                   onClick={(e) => {
                     e.preventDefault();
                     setflag(true);
@@ -161,7 +162,7 @@ const Games = () => {
                   }}
                 >
                   Start
-                </button>
+                </Button>
               </div>
             </div>
           ))}
@@ -200,7 +201,6 @@ const Games = () => {
                 className="icon"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.body.style.backgroundColor = "white";
                   document.body.style.overflowY = "scroll";
                   const temp = game.current;
                   const ar = document.querySelectorAll(".boxu");
@@ -209,7 +209,7 @@ const Games = () => {
                     console.log("Heuyy");
                     ar[i].style.backgroundColor = "white";
                   }
-                  temp.style.backgroundColor = "#f5f5f7";
+                  temp.style.backgroundColor = "#292524";
                   scroll("games");
                   setflag(false);
                   setrule(false);

@@ -1,25 +1,19 @@
 .home {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 4rem);
-}
-.home .left {
-  width: 43%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.home .left img {
-  width: 63%;
-  height: 56%;
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+  height: 100vh;
+  background-image: url(/images/landing3.jpg);
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #242424;
 }
 .home .right {
   width: 57%;
-  height: 100%;
+  height: calc(100% - 4rem);
   display: flex;
   justify-content: flex-start;
   align-items: center;
