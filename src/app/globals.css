@@ -62,17 +62,12 @@
   }
 
 .snatch{
-  position: absolute;
+  display: inline-block;
   z-index: 100000;
   background-image: url('/images/snatch.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
   width: 70px !important;
-  min-height: 100px !important;
+  min-height: 60px !important;
 }
-/* .snatch::target-text{
-  position: absolute;
-  top: 50%;
-  left:50%;
-} */
