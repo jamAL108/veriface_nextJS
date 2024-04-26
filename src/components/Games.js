@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import "../scss/games.scss";
 import { motion } from "framer-motion";
@@ -26,15 +26,19 @@ const Games = () => {
   const [edition, setedition] = useState(-1);
   const [final, setfinal] = useState(false);
   // const [isLoading, setisLoading] = useState(false);
-  console.log(edition);
-  const screenWIdth = window.innerWidth;
-  console.log(screenWIdth);
-  let size = 0;
-  if (screenWIdth > 700) {
-    size = 1000;
-  } else {
-    size = screenWIdth - 100;
-  }
+  const [size, setSize] = useState(1000);
+  const [idxx, setidxx] = useState(0);
+  const [cards, setCardse] = useState([]);
+
+  useEffect(() => {
+    const screenWIdth = window.innerWidth;
+    if (screenWIdth > 700) {
+      setSize(1000);
+    } else {
+      setSize(screenWIdth - 100);
+    }
+  }, []);
+
   const edarr = ["Celebrity Edition", "Politician Edition", "Random YT Video"];
   useEffect(() => {
     if (flag === true) {
@@ -76,11 +80,21 @@ const Games = () => {
 
   // let currindex=0
 
-  const [idxx, setidxx] = useState(0);
+  useEffect(() => {
+    const handleDocumentLoad = () => {
+      const cards = document.querySelectorAll(".boxu");
+      // Your code to manipulate the elements goes here
+    };
 
-  const cards = document.querySelectorAll(".boxu");
-  console.log("card" + cards.length);
-  console.log("IDXX" + idxx);
+    // Add an event listener to the document to execute the code when it's fully loaded
+    document.addEventListener("DOMContentLoaded", handleDocumentLoad);
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("DOMContentLoaded", handleDocumentLoad);
+    };
+  }, []);
+
   const showCard = (idxx) => {
     for (let i = 0; i < cards.length; i++) {
       if (i !== 1) {
@@ -101,7 +115,7 @@ const Games = () => {
     });
   };
   showCard(idxx);
-  console.log(edarr);
+
   function nextCard() {
     console.log(idxx);
     let currindex = idxx + 1;
@@ -147,11 +161,12 @@ const Games = () => {
               <img src={item.cover} alt="ef" />
               <div className="theory gap-2">
                 <p>
-                  {item.heading} <span className="text-primary">{item.context}.</span>
+                  {item.heading}{" "}
+                  <span className="text-primary">{item.context}.</span>
                 </p>
                 <p>{item.focus}.</p>
-                <Button 
-                className="min-w-[80px] px-[15px]  py-[4px]"
+                <Button
+                  className="min-w-[80px] px-[15px]  py-[4px]"
                   onClick={(e) => {
                     e.preventDefault();
                     setflag(true);
@@ -194,7 +209,7 @@ const Games = () => {
           >
             {correct && <ConfettiExplosion />}
             <div className="up">
-              <img src='./images/Logo.png' alt="asd" />
+              <img src="./images/Logo.png" alt="asd" />
               {/* <h1>DeepFake Challenge - <span>{edarr[0]}</span> 
                    </h1> */}
               <CloseIcon
@@ -218,7 +233,7 @@ const Games = () => {
                 }}
               />
             </div>
-            <img src='./images/tp2.png' alt="" className="image" />
+            <img src="./images/tp2.png" alt="" className="image" />
             {rule === true ? (
               <div className="rules">
                 <h1>How to Play -</h1>
@@ -230,7 +245,10 @@ const Games = () => {
                     Your task is to determine if each video is real or a
                     deepfake.
                   </li>
-                  <li>Click on &quot;Real&quot; or &quot;Deepfake&quot; to make your choice.</li>
+                  <li>
+                    Click on &quot;Real&quot; or &quot;Deepfake&quot; to make
+                    your choice.
+                  </li>
                   <li>
                     The authentic video for Every Deepfake edited video will be
                     shown after selecting an option.
@@ -285,11 +303,7 @@ const Games = () => {
                                 Original video.
                               </h1>
                             </div>
-                            <video
-                              loop
-                              autoPlay
-                              controls
-                            >
+                            <video loop autoPlay controls>
                               <source src={item.real} type="video/mp4" />
                               Your browser does not support the video tag.
                             </video>
@@ -306,11 +320,7 @@ const Games = () => {
                           </motion.h1>
                         )}
                         {(fast === false || item.result === 1) && (
-                          <video
-                            loop
-                            autoPlay
-                            controls
-                          >
+                          <video loop autoPlay controls>
                             <source src={item.video} type="video/mp4" />
                             Your browser does not support the video tag.
                           </video>

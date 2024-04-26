@@ -200,21 +200,51 @@ const Deepfake = () => {
     abortcontroller.current && abortcontroller.current.abort();
   };
 
-  const buttony = document.querySelector("#helloo"); // You can select the button by its ID, class, or other attributes.
-  const children = document.querySelectorAll(".child");
-  if (buttony && children) {
-    buttony.addEventListener("mouseover", () => {
+  // const buttony = document.querySelector("#helloo"); // You can select the button by its ID, class, or other attributes.
+  // const children = document.querySelectorAll(".child");
+  // if (buttony && children) {
+  //   buttony.addEventListener("mouseover", () => {
+  //     children.forEach((child) => {
+  //       child.style.transform = "scale(1.1)";
+  //     });
+  //   });
+
+  //   buttony.addEventListener("mouseout", () => {
+  //     children.forEach((child) => {
+  //       child.style.transform = "none";
+  //     });
+  //   });
+  // }
+
+  useEffect(() => {
+    const buttony = document.querySelector("#helloo");
+    const children = document.querySelectorAll(".child");
+
+    const handleMouseOver = () => {
       children.forEach((child) => {
         child.style.transform = "scale(1.1)";
       });
-    });
+    };
 
-    buttony.addEventListener("mouseout", () => {
+    const handleMouseOut = () => {
       children.forEach((child) => {
         child.style.transform = "none";
       });
-    });
-  }
+    };
+
+    if (buttony && children) {
+      buttony.addEventListener("mouseover", handleMouseOver);
+      buttony.addEventListener("mouseout", handleMouseOut);
+    }
+
+    // Cleanup function to remove event listeners
+    return () => {
+      if (buttony && children) {
+        buttony.removeEventListener("mouseover", handleMouseOver);
+        buttony.removeEventListener("mouseout", handleMouseOut);
+      }
+    };
+  }, []);
 
   const URLFetch = async () => {
     setLoadURLFetch(true);
@@ -279,7 +309,7 @@ const Deepfake = () => {
           <div
             id="helloo"
             className="w-[500px] !h-[300px] z-[1000] 
-          border-[3px] border-dashed border-primary/10 rounded-lg flex justify-center items-center flex-col text-[0.9rem] !bg-muted/80"
+          border-[3px] border-dashed border-primary/10 rounded-lg  flex justify-center items-center flex-col text-[0.9rem] !bg-muted/80"
             onClick={(e) => {
               e.preventDefault();
               setvideo(null);
@@ -291,10 +321,10 @@ const Deepfake = () => {
               e.stopPropagation();
             }}
           >
-            <p className="child mb-[0.3rem] mt-[0.3rem] text-[0.9rem] opacity-[0.8] ">
+            <p className="child mb-[0.3rem] mt-[0.3rem] transition duration-100 ease-in text-[0.9rem] opacity-[0.8] ">
               Upload your Videos
             </p>
-            <p className="child mb-[0.3rem] mt-[0.3rem] text-[0.9rem] opacity-[0.8]">
+            <p className="child mb-[0.3rem] mt-[0.3rem] transition duration-100 ease-in text-[0.9rem] opacity-[0.8]">
               Upto 30 mb of video & mp4 format only!
             </p>
           </div>
@@ -591,7 +621,7 @@ const Deepfake = () => {
   color: white;
   transform: scale(1.04);
 } */}
-                <Button 
+                <Button
                   variant="outline"
                   className="mt-[2rem] w-[40%] rounded-[30px] border-[1.5px] bg-transparent border-primary text-primary text-[1.15rem] transition duration-500 ease hover:bg-primary hover:text-white"
                   onClick={(e) => {
