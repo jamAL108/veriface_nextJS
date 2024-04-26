@@ -162,26 +162,15 @@
   font-style: italic;
 }
 .games .cover .block .up img {
-  margin-left: 10px;
-  width: 240px;
-  height: 95px;
+  margin-left: 40px;
+  width: 100px;
+  height: 10opx;
 }
 .games .cover .block .up .icon {
-  width: 30px;
-  height: 30px;
   position: relative;
   top: -20px;
-  right: 10px;
+  right: 20px;
   border-radius: 4px;
-  opacity: 0.6;
-}
-.games .cover .block .up .icon .css-i4bv87-MuiSvgIcon-root {
-  width: 75%;
-  height: 75%;
-  opacity: 0.6;
-}
-.games .cover .block .up .icon:hover {
-  background-color: #f5f5f7;
   cursor: pointer;
 }
 .games .cover .block .rules {

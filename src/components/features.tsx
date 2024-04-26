@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { motion } from "framer-motion";
 const Features = () => {
   return (
-    <div className='feature w-[min(1400px,85%)] flex flex-col items-center py-[20px] mt-[60px]'>
+    <div className='feature base:w-[95%] bl:w-[min(1400px,85%)] flex flex-col items-center py-[20px] mt-[60px]'>
       <div className='flex w-[80%] flex-col gap-[20px] justify-center items-center'>
         <h2 className='text-primary font-[600] text-md'>VERIFACE FEATURES</h2>
         <h1 className='text-[2.5rem] overflow-visible z-[0] relative text-center font-[650] tracking-wide'>
@@ -40,6 +40,7 @@ const Features = () => {
           </motion.div>
         </div>
         <Image src='/images/Groupfinal.png' alt="meow" width={600} height={600} />
+        {/* <img src='/images/1024V.png' alt='qwerty' className='base:flex hidden  w-[400px] h-[500px]'  /> */}
         <div className='w-[250px] mt-[-30px] gap-[55px] flex flex-col items-end'>
           <motion.div initial={{ opacity: 0, scale:0 }}
             viewport={{ once: true }}

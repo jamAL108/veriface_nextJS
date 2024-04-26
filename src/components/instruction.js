@@ -12,7 +12,7 @@ const Instruction = () => {
         <motion.div initial={{ opacity: 0, scale:0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1, scale:1 }}
-            transition={{ duration: 0.7, type: "Spring", bounce: 0.4 , delay:0.1 }} className="flex relative w-[min(1350px,79vw)] z-[0] border-[3px] rounded-[16px] flex-col">
+            transition={{ duration: 0.7, type: "Spring", bounce: 0.4 , delay:0.1 }} className="flex relative w-[min(1250px,79vw)] z-[0] border-[3px] rounded-[16px] flex-col">
           <div className="w-full h-[50px]"></div>
           <div className="relative bg-[#0f0e10] z-[10000] px-[100px]  w-[105%] min-h-[90px] left-[-30px] flex justify-between items-end">
             <h1 className="text-4xl font-[470]">Upload</h1> 
@@ -47,30 +47,6 @@ const Instruction = () => {
           </div>
           <div className="w-full h-[50px]"></div>
         </motion.div>
-
-
-        {/* <div className="flex  items-center flex-col gap-4 max-w-[350px]">
-          <div className="bg-primary rounded-full w-16 h-16 flex justify-center items-center transition duration-500 ease hover:rotate-360 hover:scale-110">
-            <FaSearch size={30} color="white" className="icon" />
-          </div>
-          <p className="text-center">
-            Click on "Detect Videos" and wait for some time, as the
-            identification process can take 1 or 2 minutes, until the output
-            result comes. You can play some games related to deepfake.
-          </p>
-        </div>
-        <div className="flex  items-center flex-col gap-4 max-w-[350px]">
-          <div className="bg-primary rounded-full w-16 h-16 flex justify-center items-center transition duration-500 ease hover:rotate-360 hover:scale-110">
-            <FaCheck size={12} color="white" className="icon w-10 h-10" />
-          </div>
-          <p className="text-center">
-            After the prediction, you will find out whether your video is fake
-            or real. In the output, we provide some metrics, including the
-            percentage for different techniques used, separate results for eye
-            blinking, face masking, and lip syncing, and finally, the overall
-            result.
-          </p>
-        </div> */}
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Scissors } from 'lucide-react';
 
 const Deepfake = () => {
   const { toast } = useToast();
@@ -446,7 +447,7 @@ const Deepfake = () => {
           </div>
         </div>
 
-        <div className="box !w-[400px] h-[50%] flex justify-evenly flex-col items-center mt-[-30px] bg-card !border-[2px] rounded-3xl">
+        <div className="box !w-[400px] h-[360px] flex justify-evenly flex-col items-center mt-[-30px] bg-card !border-[2px] rounded-3xl">
           <motion.div
             className="up !gap-5"
             initial={{ scale: 0 }}
