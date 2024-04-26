@@ -5,10 +5,12 @@ import Deepfake from '@/components/Deepfake';
 import Instruction from '@/components/instruction';
 import Games from '@/components/Games';
 import Creator from '@/components/creator';
+import Features from '@/components/features'
 export default function Aooo() {
   return (
     <div className="flex justify-center items-center flex-col overflow-hidden w-full">
     <Home/>
+    <Features/>
     <Instruction/>
     <Deepfake/>
     <Games/>

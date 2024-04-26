@@ -4,6 +4,7 @@ import SegmentIcon from "@mui/icons-material/Segment";
 import "../scss/nav.scss";
 import Scroll from "../utils/scroll";
 import CloseIcon from "@mui/icons-material/Close";
+
 const Navbar = () => {
   const [mobile, setmobile] = useState(false);
   const [flag, setflag] = useState(false);
@@ -32,8 +33,10 @@ const Navbar = () => {
     setflag(false);
   };
   return (
-    <div className="navbar  !w-[min(1400px , 85vw)]">
-      <img src='./images/Logo.png' alt="" />
+    <div className="navbar py-[10px] px-[20px] min-w-[1400px] w-[min(1400px , 85vw)] justify-between items-center">
+      <div className="flex w-[100px] justify-center items-center mx-[10px] my-[10px]">
+      <img src='./images/Vlogo.png' alt=""  />
+      </div>
       <div className="leftyyy">
         <button
           onClick={(e) => {

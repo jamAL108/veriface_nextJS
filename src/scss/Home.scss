@@ -5,7 +5,8 @@
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-image: url(/images/landing3.jpg);
+  // background-image: url(/images/landing3.jpg);
+  background-image: url(/images/landing5.png);
   background-position:center;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -13,7 +14,7 @@
 }
 .home .right {
   width: 57%;
-  height: calc(100% - 4rem);
+  height: calc(100% - 5rem);
   display: flex;
   justify-content: flex-start;
   align-items: center;
