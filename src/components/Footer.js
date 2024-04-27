@@ -1,86 +1,116 @@
-'use client';
+"use client";
 import "../scss/footer.scss";
-import { FaFacebook, FaGithub, FaTwitter } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { FaTwitter } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { RiInstagramFill } from "react-icons/ri";
+import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 const footer = () => {
+  const platform = ["plans & pricing", "AL Data processing", "Enterprise"];
+  const company = ["About us", "Blog & news"];
+  const resource = ["Documentation", "Free Demo", "what's new"];
+  const legal = [
+    "Terms of Service",
+    "Privacy Policy",
+    "Cookies Policy",
+    "Data Processing",
+  ];
   return (
-    <div className="footer !text-white !bg-muted !w-[min(1400px , 85vw)]">
-      <div className="up">
-        <motion.div
-          className="left"
-          initial={{ opacity: 0, x: -400 }}
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, type: "Spring", bounce: 0.4 }}
-        >
-          <h4>Contact</h4>
-          <h5>You can find us on any of these platforms</h5>
-          <div className="links">
-            <button type="button" aria-label="Twitter Link">
-              <a href="https://www.twitter.com/jamal_twts" className="flex justify-center items-center">
-                <FaTwitter  color="black" size={30} aria-label="Twitter Link" />
-              </a>
-            </button>
-            <button type="button" aria-label="Facebook Link">
-              <a href="https://www.facebook.com" className="flex justify-center items-center">
-                <FaFacebook color="black" size={30} aria-label="Facebook Link" />
-              </a>
-            </button>
-
-            <button aria-label="Github Link" type="button">
-              <a href="http://www.github.com/jamal108" className="flex justify-center items-center">
-                <FaGithub  color="black" size={30} aria-label="Github Link" />
-              </a>
-            </button>
-          </div>
-        </motion.div>
-        <motion.div
-          className="right"
-          initial={{ opacity: 0, x: 500 }}
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, type: "Spring", bounce: 0.4 }}
-        >
-          <div className="one">
-            <h1>Useful Links</h1>
-            <div className="item">
-              <a href="/about" className="link">
-                About us
-              </a>
-              <a className="link" href="http://www.github.com/jamal108">
-                Github
-              </a>
+    <div className="!bg-black !text-white !w-[100vw] flex justify-center">
+      <div className="!w-[min(1400px,85vw)]  px-[50px] py-[50px] flex flex-col gap-[30px]">
+        <div className="w-full flex justify-between">
+          <div className="flex gap-[50px]">
+            <div className="flex flex-col gap-[15px]">
+              <h1 className="text-lg font-[500]">Platform</h1>
+              {platform.map((item, idx) => (
+                <h2
+                  className="text-md hover:text-white cursor-pointer font-[400] text-muted-foreground"
+                  key={idx}
+                >
+                  {item}
+                </h2>
+              ))}
+            </div>
+            <div className="flex flex-col gap-[15px]">
+              <h1 className="text-lg font-[500]">Company</h1>
+              {company.map((item, idx) => (
+                <h2
+                  className="text-md hover:text-white cursor-pointer font-[400] text-muted-foreground"
+                  key={idx}
+                >
+                  {item}
+                </h2>
+              ))}
+            </div>
+            <div className="flex flex-col gap-[15px]">
+              <h1 className="text-lg font-[500]">Resouce</h1>
+              {resource.map((item, idx) => (
+                <h2
+                  className="text-md hover:text-white cursor-pointer font-[400] text-muted-foreground"
+                  key={idx}
+                >
+                  {item}
+                </h2>
+              ))}
+            </div>
+            <div className="flex flex-col gap-[15px]">
+              <h1 className="text-lg font-[500]">Legal</h1>
+              {legal.map((item, idx) => (
+                <h2
+                  className="text-md font-[400] hover:text-white cursor-pointer text-muted-foreground"
+                  key={idx}
+                >
+                  {item}
+                </h2>
+              ))}
             </div>
           </div>
-          <div className="two">
-            <h1 className="efv">Other Resources</h1>
-            <div className="item">
-              <a className="link" href="http://www.github.com/jamal108">
-                Contact Us
-              </a>
+          <div className="w-[270px] h-[160px] px-[17px] py-[17px] gap-5 flex flex-col border-[2px] rounded-2xl border-[#5d5d5d] bg-[#191919]">
+            <div className="w-full flex justify-between items-center">
+              <div className="flex gap-4">
+                <div className="bg-white rounded-full flex justify-center items-center w-[37px] h-[37px]">
+                  <Image
+                    src="/images/Vlogo.png"
+                    alt="qw"
+                    width={28}
+                    height={28}
+                  />
+                </div>
+                <div className="flex flex-col mt-[-2px] gap-0.5">
+                  <h2 className="text-sm font-[500]">Veriface</h2>
+                  <p className="text-xs text-muted-foreground">@veriface.app</p>
+                </div>
+              </div>
+              <FaTwitter size={20} color="white" />
+            </div>
+            <div className="w-full flex">
+              <h2 className="text-justify text-sm font-[460]">
+                New UI update is on the way , the model has been changes to v2.0
+                which has 89% accuracy.
+              </h2>
             </div>
           </div>
-        </motion.div>
-      </div>
-      <motion.div
-        className="line"
-        initial={{ opacity: 0, scale: 0 }}
-        viewport={{ once: true }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.3, type: "Spring", bounce: 0.4 }}
-      ></motion.div>
-      <motion.div
-        className="down"
-        initial={{ opacity: 0, scale: 0 }}
-        viewport={{ once: true }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.3, type: "Spring", bounce: 0.4 }}
-      >
-        <div className="text">
-          Copyright © {new Date().getFullYear()} VeriFace | Built using NextJS
-          and Tensorflow
         </div>
-      </motion.div>
+        <Separator className="my-3 h-[3px] w-full" />
+        <div className="flex w-full justify-between items-center">
+          <div className="flex items-center select-none">
+            <Image src="/images/Vlogo.png" alt="qw" width={35} height={35} />
+            <p className="text-md">Veriface, 2024.</p>
+          </div>
+
+          <div className="flex items-center justify-center gap-4">
+            <div className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
+              <FaGithub size={18} color="white" />
+            </div>
+            <div className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
+              <RiInstagramFill size={18} color="white" />
+            </div>
+            <div className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
+              <FaTwitter size={18} color="white" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

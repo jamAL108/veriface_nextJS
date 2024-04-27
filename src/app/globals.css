@@ -71,3 +71,10 @@
   width: 70px !important;
   min-height: 60px !important;
 }
+
+
+
+.optionbutton:hover{
+  box-shadow: rgba(173, 216, 230, 0.3) 2px 2px 7px 0px;
+  transform: scale(1.03);
+}

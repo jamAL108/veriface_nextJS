@@ -23,6 +23,7 @@ const Home = () => {
             identify deepfakes.
           </p>
         </div>
+        <img src="/images/landingtest.png" alt='meow' className="w-[1000px] h-[600px] absolute top-[-20px] right-[-200px]"/>
         <div className="flex items-center gap-[50px]">
           <Button
             className="bg-white font-[600] text-primary text-[0.9rem] hover:bg-white rounded-[30px] min-w-[150px] 

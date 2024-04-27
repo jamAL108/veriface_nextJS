@@ -286,12 +286,7 @@
   transition: 0.4s ease;
   border: 1px solid rgb(255, 255, 255);
 }
-// .games .cover .block  .box .right .upar .wrong{
-//     border: 5px solid #FF2A2A;
-//  }
-//  .games .cover .block  .box .right  .upar .correct{
-//      border: 5px solid #0ED23A;
-//   }
+
 .games .cover .block .box .right .upar button:hover {
   box-shadow: rgba(173, 216, 230, 1) 5px 5px 16px 0px;
   transform: scale(1.09);
@@ -334,6 +329,10 @@
   background-color: #f9f0f0;
   border: 1px solid #cf7a7a;
 }
+
+
+
+
 .games .cover .block .box .right .niche button {
   border: none;
   color: white;

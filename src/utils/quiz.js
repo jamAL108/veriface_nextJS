@@ -39,7 +39,7 @@ const quiz=[
     },
     {
         edition:1,
-        name:"Politician edition",
+        name:"Politician Edition",
         heading:"Test your skills and see if you can spot the difference between real videos and deepfake creations ",
         context:"with audio",
         focus:"Focus on face masking and lip syncing and audio to spot the difference between real and fake.",

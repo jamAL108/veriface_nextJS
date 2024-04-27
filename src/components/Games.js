@@ -19,7 +19,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -56,11 +63,10 @@ const Games = () => {
     }
   }, []);
 
-  const edarr = ["Celebrity Edition", "Politician Edition", "Random YT Video"];
+  const valueData = ["Celebrity Edition", "Politician Edition", "Random YT Video"];
 
   useEffect(() => {
     if (flag === false) {
-      scroll("games");
       setflag(false);
       setrule(false);
       setchecked(false);
@@ -91,61 +97,6 @@ const Games = () => {
     // eslint-disable-next-line
   }, [rule]);
 
-  useEffect(() => {
-    const handleDocumentLoad = () => {
-      const cards = document.querySelectorAll(".boxu");
-      // Your code to manipulate the elements goes here
-    };
-
-    // Add an event listener to the document to execute the code when it's fully loaded
-    document.addEventListener("DOMContentLoaded", handleDocumentLoad);
-
-    // Cleanup function to remove the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("DOMContentLoaded", handleDocumentLoad);
-    };
-  }, []);
-
-  const showCard = (idxx) => {
-    for (let i = 0; i < cards.length; i++) {
-      if (i !== 1) {
-        const el = document.querySelector("#boxu" + i);
-        el.style.zIndex = 0;
-      } else {
-        const el = document.querySelector("#boxu" + i);
-        el.style.zIndex = 1000;
-      }
-    }
-    cards.forEach((card, index) => {
-      console.log(idxx);
-      if (index === -679) {
-        card.style.transform = `translateX(0)`;
-      } else {
-        card.style.transform = `translateX(${(index - idxx) * 120}%)`;
-      }
-    });
-  };
-  showCard(idxx);
-
-  function nextCard() {
-    console.log(idxx);
-    let currindex = idxx + 1;
-    const ele = document.querySelector("#boxu" + currindex);
-    ele.style.transform = "translateX(0%)";
-    const el1 = document.querySelector("#boxu" + idxx);
-    el1.style.animation = "prev 1s ease";
-    console.log(currindex);
-    setidxx(currindex);
-  }
-  function prevCard() {
-    let currindex = idxx - 1;
-    const ele = document.querySelector("#boxu" + currindex);
-    ele.style.transform = "translateX(0%)";
-    const el1 = document.querySelector("#boxu" + idxx);
-    el1.style.animation = "trans 1s ease";
-    setidxx(currindex);
-  }
-
   return (
     <div
       className="games bg-accent !w-[min(1400px , 85vw)] flex flex-col !items-center !justify-start"
@@ -173,10 +124,10 @@ const Games = () => {
                     <CardContent className="flex w-[770px] min-h-[430px] max-h-[500px] !rounded-xl items-center gap-[30px] justify-center p-6">
                       <img
                         src={item.cover}
-                        className="w-[320px] h-[210px]"
+                        className="!w-[320px] !h-[210px]"
                         alt="ef"
                       />
-                      <div className="flex flex-col gap-6">
+                      <div className="w-[450px]  flex flex-col gap-6">
                         <p>
                           {item.heading}{" "}
                           <span className="text-primary">{item.context}.</span>
@@ -208,328 +159,88 @@ const Games = () => {
       </div>
 
       {flag === true && (
-        <div className="cover z-[100]">
-          {correct && (
-            <>
-              <Confetti className="confetti" />
-            </>
-          )}
-          <Dialog open={flag} onOpenChange={setflag}>
-            <DialogContent className="max-w-[80vw] h-[78vh] flex flex-col px-[0px] py-[10px] !overflow-hidden">
-              {correct && <ConfettiExplosion />}
-              <div className="flex w-full py-[20px] px-[25px]">
-                <img
-                  src="./images/Vlogo.png"
-                  alt="asd"
-                  className="w-[60px] h-[60px]"
-                />
-              </div>
-              <img
-                src="./images/tp2.png"
-                alt=""
-                className="absolute border z-0 bottom-0 right-[-9%] w-[290px] h-[75%] opacity-[0.4]"
-              />
-              {rule === true ? (
-                <div className="w-full h-[calc(100%_-_5rem)] flex justify-center items-center">
-                  <div className="w-[75%] h-[90%] flex flex-col gap-[25px]">
-                    <h1 className="text-xl font-[600]">How to Play -</h1>
-                    <ul className="gap-2">
-                      <li className="flex items-center gap-4">
-                        <ChevronRight size={22} />
-                        You will be shown a series of celebrities&quot; video
-                        clips.
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <ChevronRight size={22} />
-                        Your task is to determine if each video is real or a
-                        deepfake.
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <ChevronRight size={22} />
-                        Click on &quot;Real&quot; or &quot;Deepfake&quot; to
-                        make your choice.
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <ChevronRight size={22} />
-                        The authentic video for Every Deepfake edited video will
-                        be shown after selecting an option.
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <ChevronRight size={22} />
-                        No audio will be there , analyze the Face and make ur
-                        guess.
-                      </li>
-                    </ul>
-                    <Button
-                      className="max-w-[100px]"
-                      onClick={(e) => {
-                        e.preventDefault();
-
-                        setrule(false);
-                      }}
-                    >
-                      less go !
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  {finish === false &&
-                    data?.map((item, idx) => (
-                      <motion.div
-                        className="box"
-                        key={idx}
-                        id={`id${idx}`}
-                        initial={{ opacity: 0, x: size }}
-                        viewport={{ once: true }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{
-                          duration: 0.7,
-                          type: "Spring",
-                          bounce: 0.8,
-                        }}
-                      >
-                        <div className="left">
-                          {fast === true && item.result === 0 && (
-                            <div
-                              className="appear"
-                              initial={{ scale: 0 }}
-                              viewport={{ once: true }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{
-                                duration: 4,
-                                type: "Spring",
-                                bounce: 0.9,
-                              }}
-                            >
-                              <div className="ans">
-                                <h1>
-                                  The video was DeepFake edit , Here is the
-                                  Original video.
-                                </h1>
-                              </div>
-                              <video loop autoPlay controls>
-                                <source src={item.real} type="video/mp4" />
-                                Your browser does not support the video tag.
-                              </video>
-                            </div>
-                          )}
-                          {fast === true && item.result === 1 && (
-                            <motion.h1
-                              initial={{ scale: 0 }}
-                              viewport={{ once: true }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              The Video is Authentic
-                            </motion.h1>
-                          )}
-                          {(fast === false || item.result === 1) && (
-                            <video loop autoPlay controls>
-                              <source src={item.video} type="video/mp4" />
-                              Your browser does not support the video tag.
-                            </video>
-                          )}
-                        </div>
-                        <div className="right">
-                          {checked === false && (
-                            <div className="upar" id={`upar${idx}`}>
-                              <button
-                                className="wrong"
-                                id={`wrong${idx}`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setfast(true);
-                                  if (item.result === 0) {
-                                    let tem = score;
-                                    setscore(++tem);
-                                    setcorrect(true);
-                                    setchecked(true);
-                                    setfinal(true);
-                                  } else {
-                                    let btn = document.querySelector(
-                                      `#wrong${idx}`
-                                    );
-                                    btn.style.animation = "vibrate 0.7s ease";
-                                    btn.addEventListener("animationend", () => {
-                                      setchecked(true);
-                                    });
-                                  }
-                                }}
-                              >
-                                Deepfake
-                              </button>
-                              <button
-                                className="correct"
-                                id={`correct${idx}`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setfast(true);
-                                  if (item.result === 1) {
-                                    let tem = score;
-                                    setscore(++tem);
-                                    setcorrect(true);
-                                    setchecked(true);
-                                    setfinal(true);
-                                  } else {
-                                    let btn = document.querySelector(
-                                      `#correct${idx}`
-                                    );
-                                    btn.style.animation = "vibrate 0.7s ease";
-                                    btn.addEventListener("animationend", () => {
-                                      setchecked(true);
-                                    });
-                                  }
-                                }}
-                              >
-                                Real
-                              </button>
-                            </div>
-                          )}
-                          {checked === true && (
-                            <div
-                              className="niche"
-                              initial={{ scale: 0 }}
-                              viewport={{ once: true }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{
-                                duration: 0.6,
-                                type: "Spring",
-                                bounce: 0.9,
-                              }}
-                              id={final === true ? "correct" : "wrong"}
-                            >
-                              {final === true ? (
-                                <h2>You Guessed it Correct</h2>
-                              ) : (
-                                <h2>You Guess it Wrong</h2>
-                              )}
-                              <button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  let el1 = document.querySelector("#id" + idx);
-                                  el1.style.position = "relative";
-                                  el1.style.animation = "left_go 1s ease";
-                                  el1.addEventListener("animationend", () => {
-                                    el1.style.display = "none";
-                                    let next = idx + 1;
-                                    if (next < data.length) {
-                                      let el2 = document.querySelector(
-                                        "#id" + next
-                                      );
-                                      el2.style.display = "flex";
-                                    } else {
-                                      setfinish(true);
-                                    }
-                                    setchecked(false);
-                                    setcorrect(false);
-                                    setfast(false);
-                                    setfinal(false);
-                                  });
-                                }}
-                              >
-                                Next Video
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    ))}
-                  {finish === true && (
-                    <div className="finish">
-                      <div className="score">
-                        <h1>Your Score :</h1>
-                        <h3>
-                          {score}/{data.length} correct guess
-                        </h3>
-                      </div>
-                      <div className="more">
-                        <h1>Similar Challenges -</h1>
-                        <div className="boxes">
-                          <div className="box"></div>
-                          <div className="box"></div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-            </DialogContent>
-          </Dialog>
-          {/* <motion.div
-            className="block !bg-card"
-            ref={box}
-            initial={{ scale: 0 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, type: "Spring", bounce: 0.9 }}
-          >
+        <Dialog open={flag} onOpenChange={setflag}>
+          <DialogContent className="max-w-[min(1300px,80vw)] h-[min(700px,78vh)] flex flex-col px-[0px] py-[0px] items-center !overflow-hidden">
             {correct && <ConfettiExplosion />}
-            <div className="up">
-              <img src="./images/Vlogo.png" alt="asd" />
-              <X
-                size={30}
-                color="black"
-                className="icon"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.body.style.overflowY = "scroll";
-                  const temp = game.current;
-                  const ar = document.querySelectorAll(".boxu");
-                  console.log(ar);
-                  for (var i = 0; i < ar.length; i++) {
-                    console.log("Heuyy");
-                    ar[i].style.backgroundColor = "white";
-                  }
-                  temp.style.backgroundColor = "#292524";
-                  scroll("games");
-                  setflag(false);
-                  setrule(false);
-                  setchecked(false);
-                  setdata([]);
-                }}
+            {correct && (
+              <>
+                <Confetti className="confetti" />
+              </>
+            )}
+            <div className="flex w-full py-[16px] px-[25px] gap-[15px] items-center">
+              <img
+                src="./images/Vlogo.png"
+                alt="asd"
+                className="w-[55px] h-[55px]"
               />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink className="cursor-pointer" onClick={(e)=>setflag(false)}>Challenges</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink className="text-white cursor-pointer">
+                      {valueData[edition]}
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
             </div>
-            <img src="./images/tp2.png" alt="" className="image" />
+            <img
+              src="./images/tp2.png"
+              alt=""
+              className="absolute z-0 bottom-0 right-[-9%] w-[290px] h-[75%] opacity-[0.4]"
+            />
             {rule === true ? (
-              <div className="rules text-black">
-                <h1 className="text-xl font-[600]">How to Play -</h1>
-                <ul>
-                  <li>
-                    You will be shown a series of celebrities&quot; video clips.
-                  </li>
-                  <li>
-                    Your task is to determine if each video is real or a
-                    deepfake.
-                  </li>
-                  <li>
-                    Click on &quot;Real&quot; or &quot;Deepfake&quot; to make
-                    your choice.
-                  </li>
-                  <li>
-                    The authentic video for Every Deepfake edited video will be
-                    shown after selecting an option.
-                  </li>
-                  <li>
-                    No audio will be there , analyze the Face and make ur guess.
-                  </li>
-                </ul>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
+              <div className="w-full h-[calc(100%_-_5rem)] flex justify-center items-center">
+                <div className="w-[75%] h-[90%] flex flex-col gap-[30px]">
+                  <h1 className="text-xl font-[600]">How to Play -</h1>
+                  <ul className="gap-2">
+                    <li className="flex items-center gap-3">
+                      <ChevronRight size={22} />
+                      You will be shown a series of celebrities&quot; video
+                      clips.
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <ChevronRight size={22} />
+                      Your task is to determine if each video is real or a
+                      deepfake.
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <ChevronRight size={22} />
+                      Click on &quot;Real&quot; or &quot;Deepfake&quot; to make
+                      your choice.
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <ChevronRight size={22} />
+                      The authentic video for Every Deepfake edited video will
+                      be shown after selecting an option.
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <ChevronRight size={22} />
+                      No audio will be there , analyze the Face and make ur
+                      guess.
+                    </li>
+                  </ul>
+                  <Button
+                    className="max-w-[100px]"
+                    onClick={(e) => {
+                      e.preventDefault();
 
-                    setrule(false);
-                  }}
-                >
-                  Vamoos !
-                </button>
+                      setrule(false);
+                    }}
+                  >
+                    less go !
+                  </Button>
+                </div>
               </div>
             ) : (
               <>
                 {finish === false &&
                   data?.map((item, idx) => (
                     <motion.div
-                      className="box"
+                      className="w-[77%] h-[70%] hidden mt-[-12px] gap-[50px] items-center justify-center"
                       key={idx}
                       id={`id${idx}`}
                       initial={{ opacity: 0, x: size }}
@@ -541,10 +252,10 @@ const Games = () => {
                         bounce: 0.8,
                       }}
                     >
-                      <div className="left">
+                      <div className="w-[50%] h-full flex flex-col items-center justify-center">
                         {fast === true && item.result === 0 && (
                           <div
-                            className="appear"
+                            className="w-full h-full flex flex-col gap-[20px] items-center justify-center"
                             initial={{ scale: 0 }}
                             viewport={{ once: true }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -555,12 +266,17 @@ const Games = () => {
                             }}
                           >
                             <div className="ans">
-                              <h1>
+                              <h1 className="text-[1.1rem] font-[440] mb-0">
                                 The video was DeepFake edit , Here is the
                                 Original video.
                               </h1>
                             </div>
-                            <video loop autoPlay controls>
+                            <video
+                              className="w-full h-[75%] border"
+                              loop
+                              autoPlay
+                              controls
+                            >
                               <source src={item.real} type="video/mp4" />
                               Your browser does not support the video tag.
                             </video>
@@ -568,6 +284,7 @@ const Games = () => {
                         )}
                         {fast === true && item.result === 1 && (
                           <motion.h1
+                            className="text-[1.2rem] text-left font-[440] mb-2"
                             initial={{ scale: 0 }}
                             viewport={{ once: true }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -577,17 +294,26 @@ const Games = () => {
                           </motion.h1>
                         )}
                         {(fast === false || item.result === 1) && (
-                          <video loop autoPlay controls>
+                          <video
+                            className="w-full h-[75%] border"
+                            loop
+                            autoPlay
+                            controls
+                          >
                             <source src={item.video} type="video/mp4" />
                             Your browser does not support the video tag.
                           </video>
                         )}
                       </div>
-                      <div className="right">
+                      <div className="w-[50%] h-full flex justify-center items-center">
                         {checked === false && (
-                          <div className="upar" id={`upar${idx}`}>
-                            <button
-                              className="wrong"
+                          <div
+                            className="w-full h-full flex justify-center items-center flex-col gap-[25px]"
+                            id={`upar${idx}`}
+                          >
+                            <Button
+                              variant="secondary"
+                              className="wrong optionbutton min-w-[140px] min-h-[60px]"
                               id={`wrong${idx}`}
                               onClick={(e) => {
                                 e.preventDefault();
@@ -610,9 +336,10 @@ const Games = () => {
                               }}
                             >
                               Deepfake
-                            </button>
-                            <button
-                              className="correct"
+                            </Button>
+                            <Button
+                              variant="secondary"
+                              className="correct  optionbutton min-w-[140px] min-h-[60px]"
                               id={`correct${idx}`}
                               onClick={(e) => {
                                 e.preventDefault();
@@ -635,12 +362,16 @@ const Games = () => {
                               }}
                             >
                               Real
-                            </button>
+                            </Button>
                           </div>
                         )}
                         {checked === true && (
                           <div
-                            className="niche"
+                            className={`w-[70%] h-[180px] border flex flex-col gap-[20px] justify-center items-center ${
+                              final === true
+                                ? "border-[#87cf7a]/40 bg-[#5cb85c]/10"
+                                : "border-destructive/40 bg-[#d9534f]/20"
+                            } `}
                             initial={{ scale: 0 }}
                             viewport={{ once: true }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -652,11 +383,20 @@ const Games = () => {
                             id={final === true ? "correct" : "wrong"}
                           >
                             {final === true ? (
-                              <h2>You Guessed it Correct</h2>
+                              <h2 className="text-md font-[440]">
+                                You Guessed it Correct
+                              </h2>
                             ) : (
-                              <h2>You Guess it Wrong</h2>
+                              <h2 className="text-md font-[440]">
+                                You Guess it Wrong
+                              </h2>
                             )}
-                            <button
+                            <Button
+                              className={` min-w-[120px] min-h-[40px] ${
+                                final === true
+                                  ? "bg-[#5cb85c] hover:bg-[#5cb85c]"
+                                  : "bg-[#d9534f] hover:bg-[#c04b47]"
+                              }`}
                               onClick={(e) => {
                                 e.preventDefault();
                                 let el1 = document.querySelector("#id" + idx);
@@ -681,7 +421,7 @@ const Games = () => {
                               }}
                             >
                               Next Video
-                            </button>
+                            </Button>
                           </div>
                         )}
                       </div>
@@ -706,8 +446,8 @@ const Games = () => {
                 )}
               </>
             )}
-          </motion.div> */}
-        </div>
+          </DialogContent>
+        </Dialog>
       )}
     </div>
   );
