@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const Instruction = () => {
   return (
     <div className="w-full mt-[20px] bg-muted/20 flex justify-center items-center mb-[100px]">
-      <div className="px-[20px] w-[min(1400px , 85%)] py-[70px] flex  flex-col justify-center gap-[40px]">
+      <div className="px-[20px] min-w-[1300px] w-[min(1300px , 85%)] max-w-[1700px] py-[70px] flex  flex-col justify-center gap-[40px]">
 
         <motion.div initial={{ opacity: 0, scale:0 }}
             viewport={{ once: true }}

@@ -17,7 +17,7 @@ const footer = () => {
   ];
   return (
     <div className="!bg-black !text-white !w-[100vw] flex justify-center">
-      <div className="!w-[min(1400px,85vw)]  px-[50px] py-[50px] flex flex-col gap-[30px]">
+      <div className="!w-[min(1500px,90vw)]  px-[50px] py-[50px] flex flex-col gap-[30px]">
         <div className="w-full flex justify-between">
           <div className="flex gap-[50px]">
             <div className="flex flex-col gap-[15px]">

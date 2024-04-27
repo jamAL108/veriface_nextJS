@@ -78,3 +78,8 @@
   box-shadow: rgba(173, 216, 230, 0.3) 2px 2px 7px 0px;
   transform: scale(1.03);
 }
+
+
+.borv{
+  border: 1px solid red;
+}

@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { motion } from "framer-motion";
 const Features = () => {
   return (
-    <div className='feature base:w-[95%] bl:w-[min(1400px,85%)] flex flex-col items-center py-[20px] mt-[60px]'>
-      <div className='flex w-[80%] flex-col gap-[20px] justify-center items-center'>
+    <div className='feature min-w-[1300px] w-[min(1300px , 85%)] max-w-[1700px]   flex flex-col items-center py-[20px] mt-[60px]'>
+      <div className='flex w-[80%]  flex-col gap-[20px] justify-center items-center'>
         <h2 className='text-primary font-[600] text-md'>VERIFACE FEATURES</h2>
         <h1 className='text-[2.5rem] overflow-visible z-[0] relative text-center font-[650] tracking-wide'>
           Veriface's goal is accurate deepfake detection using AI, achieving
