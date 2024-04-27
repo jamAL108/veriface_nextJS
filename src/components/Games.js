@@ -27,7 +27,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -36,6 +35,21 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ChevronRight } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { RotateCcw } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 const Games = () => {
   const [data, setdata] = useState([]);
   const [flag, setflag] = useState(false);
@@ -63,7 +77,11 @@ const Games = () => {
     }
   }, []);
 
-  const valueData = ["Celebrity Edition", "Politician Edition", "Random YT Video"];
+  const valueData = [
+    "Celebrity Edition",
+    "Politician Edition",
+    "Random YT Video",
+  ];
 
   useEffect(() => {
     if (flag === false) {
@@ -176,7 +194,12 @@ const Games = () => {
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem>
-                    <BreadcrumbLink className="cursor-pointer" onClick={(e)=>setflag(false)}>Challenges</BreadcrumbLink>
+                    <BreadcrumbLink
+                      className="cursor-pointer"
+                      onClick={(e) => setflag(false)}
+                    >
+                      Challenges
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
@@ -190,7 +213,7 @@ const Games = () => {
             <img
               src="./images/tp2.png"
               alt=""
-              className="absolute z-0 bottom-0 right-[-9%] w-[290px] h-[75%] opacity-[0.4]"
+              className="absolute select-none z-0 bottom-0 right-[-9%] w-[290px] h-[75%] opacity-[0.4]"
             />
             {rule === true ? (
               <div className="w-full h-[calc(100%_-_5rem)] flex justify-center items-center">
@@ -428,18 +451,91 @@ const Games = () => {
                     </motion.div>
                   ))}
                 {finish === true && (
-                  <div className="finish">
-                    <div className="score">
-                      <h1>Your Score :</h1>
-                      <h3>
-                        {score}/{data.length} correct guess
-                      </h3>
-                    </div>
-                    <div className="more">
-                      <h1>Similar Challenges -</h1>
-                      <div className="boxes">
-                        <div className="box"></div>
-                        <div className="box"></div>
+                  <div className="w-[70%] flex items-center flex-col gap-[43px]">
+                    <motion.Card
+                      className="w-[500px] border"
+                      x-chunk="dashboard-05-chunk-4"
+                    >
+                      <CardHeader className="flex flex-row items-start bg-muted/50">
+                        <div className="grid gap-1.5">
+                          <CardTitle className="group flex items-center gap-2 text-lg w-full text-[0.96rem] leading-[20px]">
+                            Your Result
+                          </CardTitle>
+                          {score >= data.length ? (
+                            <CardDescription className="text-xs">
+                              You have guessed most of the videos correctly
+                            </CardDescription>
+                          ) : (
+                            <CardDescription className="text-xs">
+                              You have guessed very few videos correclty
+                            </CardDescription>
+                          )}
+                        </div>
+                        <div className="ml-auto flex items-center gap-1">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setresult(null);
+                              API(video);
+                              setflag(true);
+                              setreaction(-1);
+                            }}
+                            className="h-8 gap-1"
+                          >
+                            <RotateCcw className="h-3.5 w-3.5" />
+                            <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
+                              Retry
+                            </span>
+                          </Button>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-6 text-sm bg-card">
+                        <div className="grid gap-3">
+                          <div className="font-semibold">Details</div>
+                          <ul className="grid gap-3">
+                            <li className="flex items-center justify-between">
+                              <span className="text-muted-foreground">
+                                Total Correct guess
+                              </span>
+                              <span>{score}</span>
+                            </li>
+                            <li className="flex items-center justify-between">
+                              <span className="text-muted-foreground">
+                                Total wrong guess
+                              </span>
+                              <span>{data.length - score}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </CardContent>
+                    </motion.Card>
+                    <div
+                      className="w-[500px] flex flex-col gap-[20px] "
+                    >
+                      <h1 className="text-lg font-[550]">
+                        Similar Challenges -
+                      </h1>
+                      <div className="flex items-center gap-[30px]">
+                        {Quiz.filter((item) => item.edition != edition)
+                          .slice(0, 2)
+                          .map((qqqq, idex) => (
+                            <TooltipProvider key={idex+345}>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <img
+                                    src={qqqq.cover}
+                                    alt="dsv"
+                                    className="w-[120px] select-none h-[70px] rounded-lg border-[2px] border-[#5d5d5d]"
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent side='bottom'>
+                                  <p>{qqqq.name}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          ))}
                       </div>
                     </div>
                   </div>

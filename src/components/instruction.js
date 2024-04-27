@@ -1,8 +1,5 @@
 "use client";
 import React from "react";
-import { MdFileDownload } from "react-icons/md";
-import { FaSearch } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 const Instruction = () => {
   return (
