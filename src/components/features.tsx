@@ -10,7 +10,7 @@ const Features = () => {
         <h1 className='base:text-2xl bl:text-[2.5rem] overflow-visible z-[0] relative text-center font-[650] tracking-wide'>
           Veriface's goal is accurate deepfake detection using AI, achieving
           <span className='snatch base:py-[0px] bl:py-[25px]  relative base:mx-[10px] bl:mx-[18px] z-[1000000] text-white text-center'>
-            89%
+            93%
           </span>
           accuracy with facial expression analysis features.</h1>
       </div>
