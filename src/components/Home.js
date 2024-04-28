@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div className="home w-[100%]">
       <Navbar />
-      <div className="min-w-[min(1300px,90%)]  w-[min(1300px , 90vw)]  relative  h-[calc(100vh_-_4rem)] flex flex-col py-[120px] gap-[40px]">
+      <div className="min-w-[min(1300px,90%)]  w-[min(1300px , 90vw)]  relative h-[calc(100vh_-_4rem)] flex flex-col py-[120px] gap-[40px]">
         <div className="flex flex-col gap-[27px] z-[100000] ">
           <h1 className="text-5xl font-[600]">
             Spot the Fake, Protect the Truth.

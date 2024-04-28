@@ -16,10 +16,16 @@ const config = {
       screens: {
         "base":"0px",
         "2xl": "1400px",
-        "bl":"1000px"
+        "tab":'788px',
+        "bl":"1016px",
       },
     },
     extend: {
+      screens: {
+        "base":"0px",
+        "2xl": "1400px",
+        "bl":"1016px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
