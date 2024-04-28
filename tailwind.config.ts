@@ -12,18 +12,13 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "base":"0px",
-        "2xl": "1400px",
-        "tab":'788px',
-        "bl":"1016px",
-      },
+      padding: "2rem"
     },
     extend: {
       screens: {
         "base":"0px",
         "2xl": "1400px",
+        "tab":'788px',
         "bl":"1016px",
       },
       colors: {

@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import Link from 'next/link'
 const footer = () => {
   const platform = ["plans & pricing", "AI Data processing", "Enterprise"];
   const company = ["About us", "Blog & news"];

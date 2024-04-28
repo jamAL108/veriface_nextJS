@@ -117,12 +117,12 @@ const Games = () => {
 
   return (
     <div
-      className="games bg-accent w-full"
+      className="flex items-center justify-center flex-col relative bg-accent w-full"
       ref={game}
     >
-      <div className="flex flex-col item-center py-[20px] justify-start min-w-[min(1300px,90%)] w-[min(1300px , 85%)] max-w-[1700px] ">
+      <div className="flex flex-col items-center py-[20px]  justify-start  min-w-[min(1300px,90%)] w-[min(1300px , 90%)] max-w-[1700px] ">
         <motion.h2
-          className="text-4xl font-[440] py-[10px]"
+          className="text-3xl font-[440] py-[10px] w-full text-left base:px-[13px] bl:px-[0px]"
           initial={{ opacity: 0, x: -150 }}
           viewport={{ once: true }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -130,23 +130,23 @@ const Games = () => {
         >
           DeepFake challenge
         </motion.h2>
-        <div className="w-full h-[calc(100%_-_4rem)] py-[70px] flex justify-center items-center">
+        <div className="base:w-[80%] bl:w-full h-[calc(100%_-_4rem)] py-[70px] flex justify-center items-center">
           <Carousel>
-            <CarouselContent className="max-w-[820px] min-h-[min(430px,90%)] max-h-[500px]">
+            <CarouselContent className="base:w-[100%] bl:w-auto max-w-[820px] min-h-[min(430px,90%)] max-h-[500px]">
               {Quiz.map((item, idx) => (
                 <CarouselItem
                   key={idx}
-                  className="w-[770px] min-h-[430px] !rounded-xl max-h-[500px] flex  justify-center items-center"
+                  className="base:[100%] bl:w-[770px] min-h-[430px] !rounded-xl max-h-[500px] flex  justify-center items-center"
                 >
-                  <div className="p-1 w-[770px] min-h-[430px] max-h-[500px] !rounded-xl">
-                    <Card className="w-[770px] min-h-[430px] max-h-[500px] !rounded-xl">
-                      <CardContent className="flex w-[770px] min-h-[430px] max-h-[500px] !rounded-xl items-center gap-[30px] justify-center p-6">
+                  <div className="p-1 base:w-[100%] bl:w-[770px] min-h-[430px] max-h-[500px] !rounded-xl">
+                    <Card className="base:w-[100%] bl:w-[770px] min-h-[430px] max-h-[500px] !rounded-xl">
+                      <CardContent className="flex base:w-[100%] bl:w-[770px] min-h-[430px] max-h-[500px] !rounded-xl items-center gap-[30px] justify-center p-6">
                         <img
                           src={item.cover}
-                          className="!w-[320px] !h-[210px]"
+                          className="base:w-[45%] !bl:w-[320px] !h-[210px]"
                           alt="ef"
                         />
-                        <div className="w-[450px]  flex flex-col gap-6">
+                        <div className="base:w-[50%] bl:w-[450px]  flex flex-col gap-6">
                           <p>
                             {item.heading}{" "}
                             <span className="text-primary">
@@ -181,7 +181,7 @@ const Games = () => {
 
         {flag === true && (
           <Dialog open={flag} onOpenChange={setflag}>
-            <DialogContent className="max-w-[min(1300px,80vw)] h-[min(700px,78vh)] flex flex-col px-[0px] py-[0px] items-center !overflow-hidden">
+            <DialogContent className="base:min-w-[90%] bl:min-w-[min(1300px,80vw)] base:h-[80vh] bl:max-w-[min(1300px,80vw)] bl:h-[min(700px,78vh)] flex flex-col px-[0px] py-[0px] items-center !overflow-hidden">
               {correct && <ConfettiExplosion />}
               {correct && (
                 <>

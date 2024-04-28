@@ -290,7 +290,7 @@ const Deepfake = () => {
   };
 
   return (
-    <div className="deepfake bl:hidden base:flex min-w-[min(1300px,90%)] w-[min(1300px , 90vw)] relative max-w-[1700px] py-[50px] justify-center items-center">
+    <div className="deepfake base:hidden bl:flex min-w-[min(1300px,90%)] w-[min(1300px , 90vw)] relative max-w-[1700px] py-[50px] justify-center items-center">
       <div
         className="left h-full !gap-[45px]  flex flex-col justify-center items-center w-[45%] "
         id="left"
