@@ -120,7 +120,7 @@ const Games = () => {
       className="games bg-accent w-full"
       ref={game}
     >
-      <div className="flex flex-col item-center py-[20px] justify-start min-w-[1300px] w-[min(1300px , 85%)] max-w-[1700px] ">
+      <div className="flex flex-col item-center py-[20px] justify-start min-w-[min(1300px,90%)] w-[min(1300px , 85%)] max-w-[1700px] ">
         <motion.h2
           className="text-4xl font-[440] py-[10px]"
           initial={{ opacity: 0, x: -150 }}

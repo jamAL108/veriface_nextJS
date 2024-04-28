@@ -36,7 +36,7 @@
   margin-top: -345px;
   margin-right: 0%;
   transition: 2s ease;
-  width: 500px;
+  width: min(500px,90%);
   height: 300px;
   z-index: 100;
 }

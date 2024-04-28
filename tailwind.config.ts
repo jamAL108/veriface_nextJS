@@ -16,7 +16,7 @@ const config = {
       screens: {
         "base":"0px",
         "2xl": "1400px",
-        "bl":"1025px"
+        "bl":"1000px"
       },
     },
     extend: {

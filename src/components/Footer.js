@@ -6,7 +6,7 @@ import { RiInstagramFill } from "react-icons/ri";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 const footer = () => {
-  const platform = ["plans & pricing", "AL Data processing", "Enterprise"];
+  const platform = ["plans & pricing", "AI Data processing", "Enterprise"];
   const company = ["About us", "Blog & news"];
   const resource = ["Documentation", "Free Demo", "what's new"];
   const legal = [
@@ -17,14 +17,14 @@ const footer = () => {
   ];
   return (
     <div className="!bg-black !text-white !w-[100vw] flex justify-center">
-      <div className="!w-[min(1500px,90vw)]  px-[50px] py-[50px] flex flex-col gap-[30px]">
+      <div className="!w-[min(1500px,100vw)]  px-[50px] py-[50px] flex flex-col gap-[30px]">
         <div className="w-full flex justify-between">
           <div className="flex gap-[50px]">
             <div className="flex flex-col gap-[15px]">
               <h1 className="text-lg font-[500]">Platform</h1>
               {platform.map((item, idx) => (
                 <h2
-                  className="text-md hover:text-white cursor-pointer font-[400] text-muted-foreground"
+                  className="text-md capitalize hover:text-white cursor-pointer font-[400] text-muted-foreground"
                   key={idx}
                 >
                   {item}
@@ -35,7 +35,7 @@ const footer = () => {
               <h1 className="text-lg font-[500]">Company</h1>
               {company.map((item, idx) => (
                 <h2
-                  className="text-md hover:text-white cursor-pointer font-[400] text-muted-foreground"
+                  className="text-md capitalize hover:text-white cursor-pointer font-[400] text-muted-foreground"
                   key={idx}
                 >
                   {item}
@@ -46,7 +46,7 @@ const footer = () => {
               <h1 className="text-lg font-[500]">Resouce</h1>
               {resource.map((item, idx) => (
                 <h2
-                  className="text-md hover:text-white cursor-pointer font-[400] text-muted-foreground"
+                  className="text-md capitalize hover:text-white cursor-pointer font-[400] text-muted-foreground"
                   key={idx}
                 >
                   {item}
@@ -57,7 +57,7 @@ const footer = () => {
               <h1 className="text-lg font-[500]">Legal</h1>
               {legal.map((item, idx) => (
                 <h2
-                  className="text-md font-[400] hover:text-white cursor-pointer text-muted-foreground"
+                  className="text-md capitalize font-[400] hover:text-white cursor-pointer text-muted-foreground"
                   key={idx}
                 >
                   {item}

@@ -33,11 +33,11 @@ const Navbar = () => {
     setflag(false);
   };
   return (
-    <div className="navbar py-[10px] px-[20px] min-w-[1400px] w-[min(1400px , 85vw)] justify-between items-center">
-      <div className="flex w-[100px] justify-center items-center mx-[10px] my-[10px]">
+    <div className="navbar py-[10px] min-w-[min(1400px,90%)]  w-[min(1400px , 90vw)] justify-between items-center">
+      <div className="flex w-[100px] justify-center items-center my-[10px]">
       <img src='./images/Vlogo.png' alt=""  />
       </div>
-      <div className="leftyyy">
+      <div className="px-[10px] flex items-center justify-center gap-[30px]">
         <button
           onClick={(e) => {
             e.preventDefault();

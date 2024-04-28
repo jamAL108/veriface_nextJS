@@ -290,9 +290,9 @@ const Deepfake = () => {
   };
 
   return (
-    <div className="deepfake  min-w-[1300px] w-[min(1300px , 85%)] max-w-[1700px] py-[50px] flex justify-center items-center">
+    <div className="deepfake  min-w-[min(1300px,90%)] w-[min(1300px , 90vw)] max-w-[1700px] py-[50px] flex justify-center items-center">
       <div
-        className="left h-full gap-[45px] flex flex-col justify-center items-center w-[45%] "
+        className="left h-full !gap-[45px]  flex flex-col justify-center items-center w-[45%] "
         id="left"
       >
         {videoUrl ? (
@@ -301,7 +301,7 @@ const Deepfake = () => {
             viewport={{ once: true }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="videowala relative opacity-1 !w-[500px] rounded-lg !h-[300px] object-cover z-1 mt-[0]"
+            className="videowala relative opacity-1 !w-[min(500px,90%)] rounded-lg !h-[300px] object-cover z-1 mt-[0]"
           >
             <source src={videoUrl} type="video/mp4" />
             {/* Your browser does not support the video tag. */}
@@ -309,7 +309,7 @@ const Deepfake = () => {
         ) : (
           <div
             id="helloo"
-            className="w-[500px] !h-[300px] z-[1000] 
+            className="w-[min(500px,90%)] !h-[300px] z-[1000] 
           border-[3px] border-dashed border-primary/10 rounded-lg  flex justify-center items-center flex-col text-[0.9rem] !bg-muted/80"
             onClick={(e) => {
               e.preventDefault();
@@ -340,7 +340,7 @@ const Deepfake = () => {
         </div>
         {reaction === -1 && (
           <div
-            className="w-[500px] !h-[300px] z-[100] 
+            className="w-[min(500px,90%)] !h-[300px] z-[100] 
           border-[3px] border-dashed border-primary/10 rounded-lg flex justify-center items-center flex-col text-[0.9rem] !bg-muted/80"
           >
             <p>Result will be displayed here.</p>
@@ -436,7 +436,7 @@ const Deepfake = () => {
         )}
       </div>
 
-      <div className="right min-w-[45%] w-[45%] h-full relative flex flex-col justify-center items-center gap-[100px] ">
+      <div className="right min-w-[45%]  w-[45%] h-full relative flex flex-col justify-center items-center gap-[100px] ">
         <div className="w-full flex justify-center items-center">
           <div className="h-[140px] w-[55%] px-[15px] py-[10px] bg-muted/80 border-dashed border-[3px] border-primary/10 rounded-lg flex justify-center items-center opacity-[0.5] ">
             <p className="text-xs text-center">
@@ -447,7 +447,7 @@ const Deepfake = () => {
           </div>
         </div>
 
-        <div className="box !w-[400px] h-[360px] flex justify-evenly flex-col items-center mt-[-30px] bg-card !border-[2px] rounded-3xl">
+        <div className="box !w-[min(400px,80%)] h-[360px] flex justify-evenly flex-col items-center mt-[-30px] bg-card !border-[2px] rounded-3xl">
           <motion.div
             className="up !gap-5"
             initial={{ scale: 0 }}

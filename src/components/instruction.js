@@ -3,8 +3,8 @@ import React from "react";
 import { motion } from "framer-motion";
 const Instruction = () => {
   return (
-    <div className="w-full mt-[20px] bg-muted/20 flex justify-center items-center mb-[100px]">
-      <div className="px-[20px] min-w-[1300px] w-[min(1300px , 85%)] max-w-[1700px] py-[70px] flex  flex-col justify-center gap-[40px]">
+    <div className="w-full mt-[20px] bg-muted/20 flex  justify-center items-center mb-[100px]">
+      <div className="px-[20px] min-w-[min(1300px,90%)]  w-[min(1300px,90vw)] max-w-[1700px] py-[70px] flex items-center flex-col justify-center gap-[40px]">
 
         <motion.div initial={{ opacity: 0, scale:0 }}
             viewport={{ once: true }}
