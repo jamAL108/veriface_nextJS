@@ -120,9 +120,9 @@ const Games = () => {
       className="flex items-center justify-center flex-col relative bg-accent w-full"
       ref={game}
     >
-      <div className="flex flex-col items-center py-[20px]  justify-start  min-w-[min(1300px,90%)] w-[min(1300px , 90%)] max-w-[1700px] ">
+      <div className="flex flex-col items-center py-[20px]  justify-start  min-w-[min(1300px,90%)] base:w-[100%] tab:w-[min(1300px , 90%)] base:max-w-[100%]  tab:max-w-[1300px] ">
         <motion.h2
-          className="text-3xl font-[440] py-[10px] w-full text-left base:px-[13px] bl:px-[0px]"
+          className="base:text-xl tab:text-3xl font-[440] py-[10px] w-full text-left base:px-[13px] bl:px-[40px]"
           initial={{ opacity: 0, x: -150 }}
           viewport={{ once: true }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -130,30 +130,30 @@ const Games = () => {
         >
           DeepFake challenge
         </motion.h2>
-        <div className="base:w-[80%] bl:w-full h-[calc(100%_-_4rem)] py-[70px] flex justify-center items-center">
-          <Carousel>
-            <CarouselContent className="base:w-[100%] bl:w-auto max-w-[820px] min-h-[min(430px,90%)] max-h-[500px]">
+        <div className="base:max-w-[100vw] tab:max-w-auto  tab:w-[80%]  bl:w-full h-[calc(100%_-_4rem)] py-[70px] flex justify-center items-center">
+          <Carousel className="base:max-w-[75vw] tab:max-w-auto tab:max-w-auto ">
+            <CarouselContent className="base:w-full tab:w-[100%]  bl:w-auto  max-w-[820px] min-h-[min(430px,90%)] tab:max-h-[500px]">
               {Quiz.map((item, idx) => (
                 <CarouselItem
                   key={idx}
-                  className="base:[100%] bl:w-[770px] min-h-[430px] !rounded-xl max-h-[500px] flex  justify-center items-center"
+                  className="base:w-[110%] tab:w-[100%] bl:w-[770px]  min-h-[430px] !rounded-xl tab:max-h-[500px] flex  justify-center items-center"
                 >
-                  <div className="p-1 base:w-[100%] bl:w-[770px] min-h-[430px] max-h-[500px] !rounded-xl">
-                    <Card className="base:w-[100%] bl:w-[770px] min-h-[430px] max-h-[500px] !rounded-xl">
-                      <CardContent className="flex base:w-[100%] bl:w-[770px] min-h-[430px] max-h-[500px] !rounded-xl items-center gap-[30px] justify-center p-6">
+                  <div className="p-1 base:w-full tab:w-[90%]  bl:w-[770px] min-h-[430px] tab:max-h-[500px] !rounded-xl">
+                    <Card className="base:w-full tab:w-[100%] bl:w-[770px] min-h-[430px] tab:max-h-[500px] !rounded-xl">
+                      <CardContent className="flex base:w-full tab:w-[100%] bl:w-[770px] min-h-[430px] tab:max-h-[500px] !rounded-xl items-center gap-[30px] justify-center p-6 base:flex-col tab:flex-row base:py-[10px] tab:py-[0px]">
                         <img
                           src={item.cover}
-                          className="base:w-[45%] !bl:w-[320px] !h-[210px]"
+                          className="base:w-full tab:w-[45%] !bl:w-[320px] base:h-[140px] tab:h-[210px]"
                           alt="ef"
                         />
-                        <div className="base:w-[50%] bl:w-[450px]  flex flex-col gap-6">
+                        <div className="base:w-full tab:w-[55%] bl:w-[450px]  flex flex-col gap-6">
                           <p>
                             {item.heading}{" "}
                             <span className="text-primary">
                               {item.context}.
                             </span>
                           </p>
-                          <p>{item.focus}.</p>
+                          <p className="base:hidden tab:inline-block">{item.focus}.</p>
                           <Button
                             className="min-w-[80px] max-w-[130px] px-[15px]  py-[4px]"
                             onClick={(e) => {
@@ -174,14 +174,14 @@ const Games = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
+            <CarouselPrevious  />
             <CarouselNext />
           </Carousel>
         </div>
 
         {flag === true && (
           <Dialog open={flag} onOpenChange={setflag}>
-            <DialogContent className="base:min-w-[90%] bl:min-w-[min(1300px,80vw)] base:h-[80vh] bl:max-w-[min(1300px,80vw)] bl:h-[min(700px,78vh)] flex flex-col px-[0px] py-[0px] items-center !overflow-hidden">
+            <DialogContent className="base:min-w-[90%] base:max-w-[90%] bl:min-w-[min(1300px,80vw)] base:h-[90vh] tab:h-[80vh] bl:max-w-[min(1300px,80vw)] bl:h-[min(700px,78vh)] flex flex-col px-[0px] py-[0px] items-center !overflow-hidden">
               {correct && <ConfettiExplosion />}
               {correct && (
                 <>
@@ -216,7 +216,7 @@ const Games = () => {
               <img
                 src="./images/tp2.png"
                 alt=""
-                className="absolute select-none z-0 bottom-0 right-[-9%] w-[290px] h-[75%] opacity-[0.4]"
+                className="absolute select-none z-0 bottom-0 base:right-[-20%] base:h-[50%] tab:right-[-9%]  tab:w-[290px] tab:h-[75%] base:opacity-[0.3] tab:opacity-[0.4]"
               />
               {rule === true ? (
                 <div className="w-full h-[calc(100%_-_5rem)] flex justify-center items-center">
@@ -266,7 +266,7 @@ const Games = () => {
                   {finish === false &&
                     data?.map((item, idx) => (
                       <motion.div
-                        className="w-[77%] h-[70%] hidden mt-[-12px] gap-[50px] items-center justify-center"
+                        className="base:w-[90%] tab:w-[77%] base:h-[80%] tab:h-[70%] hidden base:mt-[20px] tab:mt-[-12px] gap-[50px] items-center justify-center base:flex-col tab:flex-row"
                         key={idx}
                         id={`id${idx}`}
                         initial={{ opacity: 0, x: size }}
@@ -278,7 +278,7 @@ const Games = () => {
                           bounce: 0.8,
                         }}
                       >
-                        <div className="w-[50%] h-full flex flex-col items-center justify-center">
+                        <div className="base:w-[100%] tab:w-[50%] base:h-[50%] tab:h-full flex flex-col items-center justify-center">
                           {fast === true && item.result === 0 && (
                             <div
                               className="w-full h-full flex flex-col gap-[20px] items-center justify-center"
@@ -298,7 +298,7 @@ const Games = () => {
                                 </h1>
                               </div>
                               <video
-                                className="w-full h-[75%] border"
+                                className="w-full base:h-[85%] tab:h-[75%] border"
                                 loop
                                 autoPlay
                                 controls
@@ -321,7 +321,7 @@ const Games = () => {
                           )}
                           {(fast === false || item.result === 1) && (
                             <video
-                              className="w-full h-[75%] border"
+                              className="w-full base:h-[85%] tab:h-[75%] border"
                               loop
                               autoPlay
                               controls
@@ -331,7 +331,7 @@ const Games = () => {
                             </video>
                           )}
                         </div>
-                        <div className="w-[50%] h-full flex justify-center items-center">
+                        <div className="base:w-[100%] tab:w-[50%] base:h-[50%] tab:h-full  flex justify-center items-center">
                           {checked === false && (
                             <div
                               className="w-full h-full flex justify-center items-center flex-col gap-[25px]"
@@ -393,7 +393,7 @@ const Games = () => {
                           )}
                           {checked === true && (
                             <div
-                              className={`w-[70%] h-[180px] border flex flex-col gap-[20px] justify-center items-center ${
+                              className={`base:w-[90%] tab:w-[70%] base:h-[140px] tab:h-[180px] border flex flex-col gap-[20px] justify-center items-center ${
                                 final === true
                                   ? "border-[#87cf7a]/40 bg-[#5cb85c]/10"
                                   : "border-destructive/40 bg-[#d9534f]/20"
@@ -454,9 +454,9 @@ const Games = () => {
                       </motion.div>
                     ))}
                   {finish === true && (
-                    <div className="w-[70%] flex items-center flex-col gap-[43px]">
+                    <div className="base:w-[90%] tab:w-[70%] flex items-center flex-col gap-[43px]">
                       <motion.Card
-                        className="w-[500px] border"
+                        className="base:w-[100%] tab:w-[500px] border"
                         x-chunk="dashboard-05-chunk-4"
                       >
                         <CardHeader className="flex flex-row items-start bg-muted/50">
@@ -514,7 +514,7 @@ const Games = () => {
                           </div>
                         </CardContent>
                       </motion.Card>
-                      <div className="w-[500px] flex flex-col gap-[20px] ">
+                      <div className="base:w-[100%] tab:w-[500px] flex flex-col gap-[20px] ">
                         <h1 className="text-lg font-[550]">
                           Similar Challenges -
                         </h1>

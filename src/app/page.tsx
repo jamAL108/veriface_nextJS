@@ -8,7 +8,7 @@ import Creator from '@/components/creator';
 import Features from '@/components/features'
 export default function Aooo() {
   return (
-    <div className="flex justify-center items-center flex-col overflow-hidden w-full">
+    <div className="flex justify-center items-center overflow-hidden flex-col w-full">
     <Home/>
     <Features/>
     <Instruction/>

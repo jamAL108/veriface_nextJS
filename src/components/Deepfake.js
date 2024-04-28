@@ -52,6 +52,7 @@ const Deepfake = () => {
   const [getURLOpen, setGetURLOpen] = useState(false);
   const [loadURLFetch, setLoadURLFetch] = useState(false);
   const [linkName, setlinkName] = useState("youtube");
+  const [status,setStatus] = useState(0)
 
   useEffect(() => {
     console.log(video);
@@ -137,6 +138,7 @@ const Deepfake = () => {
       });
       const msg = await res.json();
       if (msg) {
+        setStatus(msg.code)
         const element2 = document.querySelector(".img");
         const element3 = document.querySelector(".videowala");
         element2.style.animation = "restWidth 3s linear";
@@ -332,7 +334,7 @@ const Deepfake = () => {
         )}
         {reaction !== -1 && (
           <div className="w-[550px] z-[10000]  h-[100px] flex justify-end mt-[-100px] mr-[-75px]">
-            <img src={arr_emoji[0]} alt="fv" className="react" />
+            <img src={arr_emoji[status]} alt="fv" className="react" />
           </div>
         )}
         <div className="image">

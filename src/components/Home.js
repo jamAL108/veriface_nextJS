@@ -11,12 +11,12 @@ const Home = () => {
   return (
     <div className="home w-[100%] base:min-h-[100vh] bl:min-h-[min(100vh,750px)] bl:h-[min(100vh,750px)]  flex flex-col items-center ">
       <Navbar />
-      <div className="min-w-[min(1300px,90%)]  w-[min(1300px , 90vw)]  relative h-[calc(100vh_-_5.5rem)] flex flex-col base:py-[55px] tab:py-[120px] gap-[40px]">
-        <div className="flex flex-col gap-[27px] z-[100000] base:px-[20px] tab:px-[0px] ">
+      <div className="min-w-[min(1300px,90%)]  w-[min(1300px , 90vw)]  relative h-[calc(100vh_-_5.5rem)] flex flex-col base:py-[65px] tab:py-[120px] gap-[40px]">
+        <div className="flex flex-col gap-[27px] z-[100] base:px-[20px] tab:px-[0px] ">
           <h1 className="base:text-3xl tab:text-5xl font-[600]">
             Spot the Fake, Protect the Truth.
           </h1>
-          <p className="base:text-2xl tab:text-4xl tab:w-[80%] font-[600] text-[#838383] leading-[50px]">
+          <p className="base:text-2xl tab:text-4xl tab:w-[80%] font-[600] text-[#838383] tab:leading-[50px]">
             Utilizes eye <span className="text-primary">blinking</span>, facial{" "}
             <span className="text-primary">expressions</span>, <br/> and lip{" "}
             <span className="text-primary">syncing</span> to
