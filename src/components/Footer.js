@@ -19,8 +19,8 @@ const footer = () => {
   return (
     <div className="!bg-black !text-white !w-[100vw] flex justify-center">
       <div className="!w-[min(1500px,100vw)]  px-[50px] py-[50px] flex flex-col gap-[30px]">
-        <div className="w-full flex justify-between">
-          <div className="flex gap-[50px]">
+        <div className="w-full flex base:flex-col bl:flex-row  gap-[40px] bl:justify-between ">
+          <div className="flex base:gap-[30px] bl:gap-[50px] base:flex-col bl:flex-row">
             <div className="flex flex-col gap-[15px]">
               <h1 className="text-lg font-[500]">Platform</h1>
               {platform.map((item, idx) => (

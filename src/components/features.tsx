@@ -4,12 +4,12 @@ import Image from 'next/image'
 import { motion } from "framer-motion";
 const Features = () => {
   return (
-    <div className='feature min-w-[min(1300px,85%)] w-[min(1300px , 85%)] max-w-[1700px] flex flex-col items-center py-[20px] mt-[60px]'>
-      <div className='flex w-[80%] px-[30px]  flex-col gap-[20px] justify-center items-center'>
+    <div className='feature min-w-[min(1300px,90%)] w-[min(1300px , 90vw)] relative  base:max-w-[90vw] bl:max-w-[1700px] flex flex-col items-center py-[20px]  base:mt-[30px] bl:mt-[60px] overflow-hidden'>
+      <div className='flex bl:w-[80%] bl:px-[36px]   flex-col base:gap-[20px] bl:gap-[30px] justify-center items-center'>
         <h2 className='text-primary font-[600] text-md'>VERIFACE FEATURES</h2>
-        <h1 className='text-[2.5rem] overflow-visible z-[0] relative text-center font-[650] tracking-wide'>
+        <h1 className='base:text-2xl bl:text-[2.5rem] overflow-visible z-[0] relative text-center font-[650] tracking-wide'>
           Veriface's goal is accurate deepfake detection using AI, achieving
-          <span className='snatch  relative mx-[13px] z-[1000000] text-white text-center'>
+          <span className='snatch base:py-[0px] bl:py-[25px]  relative base:mx-[10px] bl:mx-[13px] z-[1000000] text-white text-center'>
             89%
           </span>
           {`     `}
@@ -39,7 +39,7 @@ const Features = () => {
             <p className=' text-right text-sm text-muted-foreground'>Users can actively monitor for deepfake content in real-time, ensuring timely detection and response.</p>
           </motion.div>
         </div>
-        <Image src='/images/Groupfinal.png' alt="meow" width={600} height={600} />
+        <Image src='/images/Groupfinal.png' alt="meow" width={600} height={600} className='base:hidden bl:flex' />
         {/* <img src='/images/1024V.png' alt='qwerty' className='base:flex hidden  w-[400px] h-[500px]'  /> */}
         <div className='w-[250px] mt-[-30px] gap-[55px] flex flex-col items-end'>
           <motion.div initial={{ opacity: 0, scale:0 }}

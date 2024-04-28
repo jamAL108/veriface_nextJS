@@ -72,6 +72,19 @@
   min-height: 60px !important;
 }
 
+@media screen and (max-width:1024px) {
+  .snatch{
+    display: inline-block;
+    z-index: 100000;
+    background-image: url('/images/snatch.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 40px !important;
+    min-height: 30px !important;
+  }
+}
+
 
 
 .optionbutton:hover{
