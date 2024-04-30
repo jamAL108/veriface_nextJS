@@ -17,9 +17,7 @@ return showVideo ? (
     {" "}
     {children} 
   </>
-  ) : (
-    <FileInput />
-  )
+  ) : null
 }
 
 export default VideoFilePicker;

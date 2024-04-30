@@ -19,7 +19,7 @@ const Navbar = () => {
         <img
           src="./images/Vlogo.png"
           alt=""
-          className="base:w-[70px] base:h-[60px] tab:w-[90px] tab:h-[80px]"
+          className="base:w-[70px] select-none base:h-[60px] tab:w-[90px] tab:h-[80px]"
         />
       </div>
       <div className="px-[10px] base:hidden bl:flex items-center justify-center gap-[30px]">
@@ -32,15 +32,11 @@ const Navbar = () => {
         >
           Guide
         </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            close();
-            Scroll("deepfake");
-          }}
+        <Link
+          href='/privacy'
         >
-          Detect Videos
-        </button>
+          Privacy
+        </Link>
         <button
           onClick={(e) => {
             e.preventDefault();
