@@ -357,6 +357,7 @@ const Deepfake = () => {
               setreaction(-1);
               handleClick();
               setresult(null);
+              setThumbnail(null)
               e.stopPropagation();
             }}
           >

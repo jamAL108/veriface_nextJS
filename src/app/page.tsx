@@ -6,6 +6,7 @@ import Instruction from '@/components/instruction';
 import Games from '@/components/Games';
 import Creator from '@/components/creator';
 import Features from '@/components/features'
+import Beam from '@/components/downcontent/component'
 export default function Aooo() {
   return (
     <div className="flex justify-center items-center overflow-hidden flex-col w-full">
@@ -14,7 +15,8 @@ export default function Aooo() {
     <Instruction/>
     <Deepfake/>
     <Games/>
-    <Creator/>
+    <Beam/>
+    {/* <Creator/> */}
     <Footer/>
    </div>
   );

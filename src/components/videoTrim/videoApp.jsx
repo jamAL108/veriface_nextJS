@@ -363,19 +363,18 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
         <section className="flex flex-col items-center mt-[10px] w-full">
           <article className="w-full  flex flex-col items-center justify-center">
             {trimIsProcessing ? <h4>{loadingText}</h4> : null}
-            {/*If show is True --> VIDEO-FILE-PICKER --> If Video Put then Video Frame --> Auto Run Range Selector */}
-
             {show ?
-              <div className="w-full h-[290px]  ">
+              <div className="w-full h-[290px]  overflow-hidden">
                 <video
                   ref={videoRef}
-                  className='w-full h-full border'
+                  className='w-full h-full border object-fit'
                   src={inputVideoFile ? URL : null}
                   autoPlay
                   controls
                   muted
                   onLoadedMetadata={handleLoadedData}
                   crossOrigin="anonymous"
+                  style={{ maxHeight: '290px' }}
                 >
                 </video>
               </div>

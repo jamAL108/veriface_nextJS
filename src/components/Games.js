@@ -142,6 +142,7 @@ const Games = () => {
                     <Card className="base:w-full tab:w-[100%] bl:w-[770px] min-h-[430px] tab:max-h-[500px] !rounded-xl">
                       <CardContent className="flex base:w-full tab:w-[100%] bl:w-[770px] min-h-[430px] tab:max-h-[500px] !rounded-xl items-center gap-[30px] justify-center p-6 base:flex-col tab:flex-row base:py-[10px] tab:py-[0px]">
                         <img
+                          crossorigin="anonymous"
                           src={item.cover}
                           className="base:w-full tab:w-[45%] !bl:w-[320px] base:h-[140px] tab:h-[210px]"
                           alt="ef"
@@ -153,7 +154,9 @@ const Games = () => {
                               {item.context}.
                             </span>
                           </p>
-                          <p className="base:hidden tab:inline-block">{item.focus}.</p>
+                          <p className="base:hidden tab:inline-block">
+                            {item.focus}.
+                          </p>
                           <Button
                             className="min-w-[80px] max-w-[130px] px-[15px]  py-[4px]"
                             onClick={(e) => {
@@ -174,7 +177,7 @@ const Games = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious  />
+            <CarouselPrevious />
             <CarouselNext />
           </Carousel>
         </div>
@@ -298,6 +301,7 @@ const Games = () => {
                                 </h1>
                               </div>
                               <video
+                                crossorigin="anonymous"
                                 className="w-full base:h-[85%] tab:h-[75%] border"
                                 loop
                                 autoPlay

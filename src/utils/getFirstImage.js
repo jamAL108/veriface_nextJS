@@ -7,7 +7,7 @@ const FF = createFFmpeg({
 
 export const getFirstFrameImageURL = async (file) => {
     if (!FF.isLoaded()) await FF.load();
-    const startTimeInSecs = "00:00:00.005";
+    const startTimeInSecs = "00:00:00.1";
     FF.FS("writeFile", file.name, await fetchFile(file));
 
     try {
