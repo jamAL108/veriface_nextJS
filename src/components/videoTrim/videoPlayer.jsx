@@ -3,9 +3,9 @@
 const OutputVideo = ({ videoSrc }) => {
   return videoSrc ? (
     <>
-      <article className="grid_txt_2">
-        <div className="bord_g_2 p_2">
-          <video crossOrigin="anonymus" src={videoSrc} autoPlay controls muted width="450"></video>
+      <article className="w-full  flex flex-col items-center justify-center">
+        <div className="w-full h-[300px] ">
+          <video crossOrigin="anonymus" src={videoSrc} autoPlay controls muted className="w-full h-full"></video>
         </div>
       </article>
        

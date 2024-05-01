@@ -1,21 +1,29 @@
 'use client';
-import React, { useEffect, useState , useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg/src/index.js"
 import * as helpers from "./utils/helpers";
 import VideoFilePicker from "./videoFilePicker";
 import OutputVideo from "./videoPlayer";
 import OutputVideo2 from "./outputNoDown"
 import RangeInput from "./videoRangeInput";
-// import './global.css'
+import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
-import { Highlighter } from 'lucide-react';
+
+import { Highlighter, ArrowLeft, ScissorsLineDashed } from 'lucide-react';
 const FF = createFFmpeg({
   log: false,
   corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
 });
-function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , setVideo , setVideoObject }) {
+function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, setVideo, setVideoObject, setopen, setVideoUrl }) {
   const [inputVideoFile, setInputVideoFile] = useState(video);
   const [trimmedVideoFile, setTrimmedVideoFile] = useState(null);
+
   const [trimIsProcessing, setTrimIsProcessing] = useState(false);
   const [videoMeta, setVideoMeta] = useState(null);
   const [URL, setURL] = useState(null);
@@ -26,7 +34,10 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
 
   const [show, setShow] = useState(true)
   const [showBtn, setShowBtn] = useState(true)
-  const [saveBtn, setSaveBtn] = useState(true)
+
+  const [saveBtn, setSaveBtn] = useState(false)
+
+
   const [videoAppShow, setVideoAppShow] = useState(true)
   const [addedShow, setAddedShow] = useState(true)
   const [deletedState, setDeletedState] = useState(true)
@@ -42,7 +53,9 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
 
   useEffect(() => {
     (async function () {
-      await FF.load();
+      if (!FF.isLoaded()) {
+        await FF.load();
+      }
     })();
   }, [])
 
@@ -91,7 +104,6 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
   const getThumbnails = async ({ duration }) => {
     if (!FF.isLoaded()) await FF.load();
     setThumbnailIsProcessing(true);
-    setShowBtn(false);
     let MAX_NUMBER_OF_IMAGES = 15;
     let offset =
       duration === MAX_NUMBER_OF_IMAGES ? 1 : duration / MAX_NUMBER_OF_IMAGES;
@@ -124,15 +136,15 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
         console.log({ message: error });
       }
     }
-    getFirstFrameImageURL();
+    // getFirstFrameImageURL();
     setThumbnailIsProcessing(false);
     return arrayOfImageURIs;
   };
 
-  const getFirstFrameImageURL = async () => {
+  const getFirstFrameImageURL = async (file) => {
     if (!FF.isLoaded()) await FF.load();
-    const startTimeInSecs = "00:00:00.005"; 
-    FF.FS("writeFile", inputVideoFile.name, await fetchFile(inputVideoFile));
+    const startTimeInSecs = "00:00:00.005";
+    FF.FS("writeFile", file.name, await fetchFile(file));
 
     try {
       console.log(`Generating the first frame`);
@@ -140,11 +152,11 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
         "-ss",
         startTimeInSecs,
         "-i",
-        inputVideoFile.name,
+        file.name,
         "-t",
         "00:00:1.000",
         "-vf",
-        "scale=150:-1",
+        "scale=1280:-1",
         "firstFrame.png"
       );
       const data = FF.FS("readFile", "firstFrame.png");
@@ -157,10 +169,9 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
       });
       FF.FS("unlink", "firstFrame.png");
       fileImage(dataURI)
-      return dataURI;
     } catch (error) {
       console.error(`Error generating the first frame:`, error);
-      return null; 
+      return null;
     }
   };
 
@@ -177,22 +188,22 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
     setThumbnails(thumbnails);
   };
 
-  const toggleVideoApp = async () => {
-    setVideoAppShow(false);
-    setSaveBtn(true);
-    setAddedShow(false);
-  }
+  // const toggleVideoApp = async () => {
+  //   setVideoAppShow(false);
+  //   setSaveBtn(true);
+  //   setAddedShow(false);
+  // }
 
-  const deleteAction = async () => {
-    setVideoAppShow(true);
-    setShow(true)
-    setAddedShow(true);
-    setInputVideoFile(null);
-    setDeletedState(false);
-    setTrimmedVideoFile(null);
-    uploadProvided(true);
-    setBackState(false)
-  }
+  // const deleteAction = async () => {
+  //   setVideoAppShow(true);
+  //   setShow(true)
+  //   setAddedShow(true);
+  //   setInputVideoFile(null);
+  //   setDeletedState(false);
+  //   setTrimmedVideoFile(null);
+  //   uploadProvided(true);
+  //   setBackState(false)
+  // }
 
   const handleAudioTrim = async () => {
     let startTime = ((rStart / 100) * videoMeta.duration).toFixed(2);
@@ -253,8 +264,8 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
     if (deletedState == false) {
       setDeletedState(!deletedState)
     }
-    setShowBtn(true);
-    setSaveBtn(false);
+    setShowBtn(false);
+    setSaveBtn(true);
     try {
       FF.FS("writeFile", inputVideoFile.name, await fetchFile(inputVideoFile));
       await FF.run(
@@ -269,19 +280,32 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
         "ping.mp4"
       );
       const data = FF.FS("readFile", "ping.mp4");
+      console.log(data)
       await setVideoSize(data);
-      const dataURL = await helpers.readFileAsBase64(
-        new Blob([data.buffer], { type: "video/mp4" })
-      );
       await handleAudioTrim()
+      const trimmedBlob = new Blob([data], { type: "video/mp4" });
 
-      setVideoObject(blobToFile(dataURL,'file_from_link.mp4'))
-      const vdata = new FormData();
-      vdata.append("file", dataURL);
-      setVideo(vdata);
+      // Convert Blob to File object
+      const trimmedVideoFile = new File([trimmedBlob], "trimmed_video.mp4", { type: "video/mp4" });
 
-      console.log(dataURL)
-      setTrimmedVideoFile(dataURL);
+      // Set inputVideoFile state
+      getFirstFrameImageURL(trimmedVideoFile)
+      setInputVideoFile(trimmedVideoFile);
+
+      // Set URL for the video
+      const trimmedDataURL = window.URL.createObjectURL(trimmedBlob)
+      setURL(trimmedDataURL);
+
+      // const dataURL = await helpers.readFileAsBase64(
+      //   new Blob([data.buffer], { type: "video/mp4" })
+      // );
+      // await handleAudioTrim()
+      // console.log(dataURL)
+      // setInputVideoFile(null)
+      // setURL(null)
+      // setInputVideoFile(blobToFile(dataURL, 'file_fromk.mp4'));
+      // setURL(window.URL.createObjectURL(data));
+
     } catch (error) {
       console.log(error);
     } finally {
@@ -306,6 +330,7 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
     setShow(!show)
     setDeletedState(!deletedState)
     setBackState(true)
+    // setSaveBtn(false)
   }
 
   const handleMediaTitle = (event) => {
@@ -318,8 +343,20 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
     return file;
   }
 
+  const saveTrimVideoToMain = () => {
+    // setVideoUrl(window.URL.createObjectURL(inputVideoFile))
+    setVideoObject(inputVideoFile)
+    const vdata = new FormData()
+    vdata.append("file", inputVideoFile)
+    console.log(vdata)
+    setVideo(vdata)
+    setShow(true)
+    setSaveBtn(false)
+    setShowBtn(true)
+  }
+
   return (
-    <div className="w-full flex flex-col gap-[20px]">
+    <div className="w-full flex flex-col gap-[50px]">
       {videoAppShow ? <main className="w-full flex flex-col gap-[20px]">
 
 
@@ -329,10 +366,10 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
             {/*If show is True --> VIDEO-FILE-PICKER --> If Video Put then Video Frame --> Auto Run Range Selector */}
 
             {show ?
-              <div className="w-full h-[300px]  ">
-                <video 
+              <div className="w-full h-[290px]  ">
+                <video
                   ref={videoRef}
-                  className='w-full h-full '
+                  className='w-full h-full border'
                   src={inputVideoFile ? URL : null}
                   autoPlay
                   controls
@@ -346,27 +383,21 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
             }
 
           </article>
-          {deletedState ?
-            <OutputVideo
-              videoSrc={trimmedVideoFile}
-            /> : null
-          }
         </section>
 
         {<div className="w-full relative">
-          {deletedState ?
-            <RangeInput
-              rEnd={rEnd}
-              rStart={rStart}
-              handleUpdaterStart={handleUpdateRange(setRstart)}
-              handleUpdaterEnd={handleUpdateRange(setRend)}
-              loading={thumbnailIsProcessing}
-              videoMeta={videoMeta}
-              thumbNails={thumbnails}
-            /> : null
-          }
 
-          {backState ?
+          <RangeInput
+            rEnd={rEnd}
+            rStart={rStart}
+            handleUpdaterStart={handleUpdateRange(setRstart)}
+            handleUpdaterEnd={handleUpdateRange(setRend)}
+            loading={thumbnailIsProcessing}
+            videoMeta={videoMeta}
+            thumbNails={thumbnails}
+          />
+
+          {/* {backState ?
             <RangeInput
               rEnd={rEnd}
               rStart={rStart}
@@ -376,49 +407,76 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl , se
               videoMeta={videoMeta}
               thumbNails={thumbnails}
             /> : null
-          }
+          } */}
 
         </div>}
 
       </main> : null
       }
 
-      {!showBtn ?
-        <div className="btn-container">
-          <div
-            onClick={handleTrim}
-            className="btn2 btn_b2"
-            disabled={trimIsProcessing}
-          >
-            {trimIsProcessing ? "Loading..." : "Clip"}
-            {thumbnailIsProcessing ? " Loading..." : ""}
-          </div>
+      {showBtn ?
+        <div className="flex items-center min-w-[80px] max-w-[200px] justify-center gap-[15px] w-full">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant='outline'
+                  className="px-[25px]"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    saveTrimVideoToMain()
+                    setopen(false)
+                  }}
+                  disabled={trimIsProcessing || thumbnailIsProcessing}
+                >
+                  Save and continue
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p className="max-w-[200px] text-xs text-center">Complete the trimming and go to detect video</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  className="px-[25px]"
+                  onClick={handleTrim}
+                  disabled={trimIsProcessing}
+                >
+                  {thumbnailIsProcessing === false ? <ScissorsLineDashed className="mr-2 h-4 w-4" /> : " Loading..."}
+                  {trimIsProcessing ? "Loading " :
+                    "Clip"
+                  }
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p className="max-w-[200px] text-xs text-center">Select the Clip from the above range <br />
+                  and trim (remove) other parts</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div> : null
       }
 
-      {!saveBtn ?
-        <div className="btn-container">
-          <div
-            onClick={toggleVideoApp}
-            className="btn2 btn_b2"
+      {saveBtn ?
+        <div className="flex items-center justify-center gap-[25px] w-full">
+          <Button variant='outline' onClick={HandleBack} className="flex justify-center items-center gap-[14px]">
+            <ArrowLeft size={20} color="white" />
+            Back
+          </Button>
+          <Button
+            className="px-[25px]"
+            onClick={(e) => {
+              e.preventDefault()
+              saveTrimVideoToMain()
+            }}
             disabled={trimIsProcessing}
           >
             {trimIsProcessing ? "loading..." : "Save"}
 
-          </div>
-
-          <div className="back-btn">
-            <div className="back-btn-txt" onClick={HandleBack}>
-              <h3>Back</h3>
-            </div>
-          </div>
-        </div> : null
-      }
-
-      {!addedShow ?
-        <div className="added">
-          <OutputVideo2 videoSrc={trimmedVideoFile} />
-          <Highlighter className="added-delete-btn" onClick={deleteAction} />
+          </Button>
         </div> : null
       }
     </div>

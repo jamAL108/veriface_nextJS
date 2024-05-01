@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -11,18 +11,33 @@ import {
 import { Button } from "@/components/ui/button"
 import { Scissors } from 'lucide-react'
 import VideoTrim from './videoApp'
-const Trim = ({setThumbnail,video,setExtractMeta,setPassedAudioDataUrl , setVideo, setVideoObject} : {
-    setThumbnail:any,
-    video:any,
-    setExtractMeta:any,
-    setPassedAudioDataUrl:any,
-    setVideo:any,
-    setVideoObject:any
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+const Trim = ({ setThumbnail, video, setExtractMeta, setPassedAudioDataUrl, setVideo, setVideoObject , setVideoUrl }: {
+    setThumbnail: any,
+    video: any,
+    setExtractMeta: any,
+    setPassedAudioDataUrl: any,
+    setVideo: any,
+    setVideoObject: any,
+    setVideoUrl:any,
 }) => {
-    return (
-        <Dialog>
+    const [open, setopen] = useState<boolean>(false)
+    return ( 
+        <Dialog open={open} onOpenChange={setopen} >
             <DialogTrigger asChild>
-                <Button
+                <Button onClick={(e)=>{
+                    setopen(true)
+                }}
                     variant="outline"
                     className="flex justify-center px-[20px] items-center gap-[7px] text-[1.05rem] transition duration-500 ease hover:scale-105"
                 >
@@ -38,7 +53,7 @@ const Trim = ({setThumbnail,video,setExtractMeta,setPassedAudioDataUrl , setVide
                     </DialogDescription>
                 </DialogHeader>
                 <div className='flex w-full h-[calc(100%_-_5rem)]'>
-                <VideoTrim setVideo={setVideo} setVideoObject={setVideoObject} setPassedAudioDataUrl={setPassedAudioDataUrl} video={video} fileImage={setThumbnail}  setExtractMeta={setExtractMeta}/>
+                    <VideoTrim setVideoUrl={setVideoUrl} setopen={setopen} setVideo={setVideo} setVideoObject={setVideoObject} setPassedAudioDataUrl={setPassedAudioDataUrl} video={video} fileImage={setThumbnail} setExtractMeta={setExtractMeta} />
                 </div>
             </DialogContent>
         </Dialog>

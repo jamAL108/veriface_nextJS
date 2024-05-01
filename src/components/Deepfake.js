@@ -28,7 +28,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Scissors, Trash2 } from "lucide-react";
-import TrimComp from './videoTrim/trim'
+import TrimComp from "./videoTrim/trim";
+import { getFirstFrameImageURL } from "@/utils/getFirstImage";
 const Deepfake = () => {
   const { toast } = useToast();
   const inputRef = useRef(null);
@@ -42,9 +43,9 @@ const Deepfake = () => {
     "./images/red.png",
     "./images/error.png",
   ];
-  const [thumbnail , setThumbnail] = useState(null)
-  const [extractedMeta , setExtractMeta] = useState(null)
-  const [passedAudioData,setPassedAudioDataUrl] = useState(null)
+  const [thumbnail, setThumbnail] = useState(null);
+  const [extractedMeta, setExtractMeta] = useState(null);
+  const [passedAudioData, setPassedAudioDataUrl] = useState(null);
   const [temp, settemp] = useState(videoUrl);
   const [api, setapi] = useState(false);
   const abortcontroller = useRef(null);
@@ -56,7 +57,7 @@ const Deepfake = () => {
   const [linkName, setlinkName] = useState("youtube");
   const [status, setStatus] = useState(0);
 
-  const [videoObject , setVideoObject] = useState(null)
+  const [videoObject, setVideoObject] = useState(null);
 
   useEffect(() => {
     console.log(video);
@@ -78,7 +79,7 @@ const Deepfake = () => {
     inputRef.current.click();
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const fileObj = event.target.files[0];
     if (!fileObj) {
       // setreaction(-1);
@@ -87,8 +88,11 @@ const Deepfake = () => {
     if (fileObj) {
       if (fileObj.size <= 30 * 1024 * 1024 && fileObj.type === "video/mp4") {
         console.log(fileObj);
-        setVideoObject(fileObj)
+        setVideoObject(fileObj);
         setVideoUrl(window.URL.createObjectURL(fileObj));
+
+        const thumb = await getFirstFrameImageURL(fileObj);
+        setThumbnail(thumb);
 
         const data = new FormData();
         data.append("file", fileObj);
@@ -282,9 +286,14 @@ const Deepfake = () => {
         });
       }
       const videoBlob = await response.blob();
-      setVideoObject(blobToFile(videoBlob,'file_from_link.mp4'))
+      const retrievedfile = blobToFile(videoBlob, "file_from_link.mp4");
+      setVideoObject(retrievedfile)
       const videoUrlObject = window.URL.createObjectURL(videoBlob);
       setVideoUrl(videoUrlObject);
+      
+      const thumb = await getFirstFrameImageURL(retrievedfile)
+      setThumbnail(thumb)
+
       const data = new FormData();
       data.append("file", videoBlob);
       setvideo(data);
@@ -297,6 +306,10 @@ const Deepfake = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(videoUrl);
+  }, [videoUrl]);
+
   function blobToFile(blob, fileName) {
     const file = new File([blob], fileName, { type: blob.type });
     return file;
@@ -308,7 +321,8 @@ const Deepfake = () => {
         className="left h-full !gap-[45px]  flex flex-col justify-center items-center w-[45%] "
         id="left"
       >
-        {videoUrl ? (
+
+        {/* {videoUrl ? (
           <motion.video
             initial={{ scale: 0 }}
             viewport={{ once: true }}
@@ -318,7 +332,18 @@ const Deepfake = () => {
           >
             <source src={videoUrl} type="video/mp4" />
             {/* Your browser does not support the video tag. */}
-          </motion.video>
+        {/* </motion.video>  */}
+
+        {thumbnail ? (
+          <motion.img
+            initial={{ scale: 0 }}
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            src={thumbnail}
+            alt="thumbnail"
+            className="videowala relative opacity-1 !w-[min(500px,90%)] rounded-lg !h-[300px] object-cover z-1 mt-[0]"
+          />
         ) : (
           <div
             id="helloo"
@@ -600,7 +625,16 @@ const Deepfake = () => {
             {api === false && (
               <div className="flex flex-col w-full gap-[20px] items-center justify-center">
                 <div className="flex gap-[20px] justify-between items-center">
-                  <TrimComp setVideo={setvideo} setVideoObject={setVideoObject} setPassedAudioDataUrl={setPassedAudioDataUrl} video={videoObject} setThumbnail={setThumbnail} thumbnail={thumbnail} setExtractMeta={setExtractMeta} />
+                  <TrimComp
+                    setVideo={setvideo}
+                    setVideoObject={setVideoObject}
+                    setPassedAudioDataUrl={setPassedAudioDataUrl}
+                    video={videoObject}
+                    setThumbnail={setThumbnail}
+                    thumbnail={thumbnail}
+                    setExtractMeta={setExtractMeta}
+                    setVideoUrl={setVideoUrl}
+                  />
                   <Button
                     variant="outline"
                     className="flex text-destructive px-[20px]  hover:text-destructive  justify-center items-center gap-[7px] text-[1.05rem] transition duration-500 ease hover:scale-105"
@@ -608,7 +642,7 @@ const Deepfake = () => {
                       e.preventDefault();
                     }}
                   >
-                    <Trash2 size={19}  />
+                    <Trash2 size={19} />
                     Remove
                   </Button>
                 </div>
