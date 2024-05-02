@@ -25,7 +25,7 @@ const Component = () => {
           </div>
           <Meter />
         </div>
-        <div className='bg-[#2a2a2a] base:w-full tab:w-[45%] h-[200px] rounded-xl'>
+        <div className='bg-[#2a2a2a] base:hidden tab:flex tab:w-[45%] h-[200px] rounded-xl'>
 
         </div>
       </div>
