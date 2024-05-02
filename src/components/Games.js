@@ -142,7 +142,7 @@ const Games = () => {
                     <Card className="base:w-full tab:w-[100%] bl:w-[770px] min-h-[430px] tab:max-h-[500px] !rounded-xl">
                       <CardContent className="flex base:w-full tab:w-[100%] bl:w-[770px] min-h-[430px] tab:max-h-[500px] !rounded-xl items-center gap-[30px] justify-center p-6 base:flex-col tab:flex-row base:py-[10px] tab:py-[0px]">
                         <img
-                          crossorigin="anonymous"
+                          crossOrigin="anonymous"
                           src={item.cover}
                           className="base:w-full tab:w-[45%] !bl:w-[320px] base:h-[140px] tab:h-[210px]"
                           alt="ef"
@@ -301,7 +301,7 @@ const Games = () => {
                                 </h1>
                               </div>
                               <video
-                                crossorigin="anonymous"
+                                crossOrigin="anonymous"
                                 className="w-full base:h-[85%] tab:h-[75%] border"
                                 loop
                                 autoPlay

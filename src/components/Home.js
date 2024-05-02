@@ -1,12 +1,12 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../scss/Home.scss";
 import Scroll from "../utils/scroll";
 import Navbar from "@/components/Navbar";
 import { Button } from "./ui/button";
-import { ArrowDown } from 'lucide-react';
-import { CircleChevronDown } from 'lucide-react';
-
+import { ArrowDown } from "lucide-react";
+import { CircleChevronDown } from "lucide-react";
+import Link from "next/link";
 const Home = () => {
   return (
     <div className="home w-[100%] base:min-h-[100vh] bl:min-h-[min(100vh,750px)] bl:h-[min(100vh,750px)]  flex flex-col items-center ">
@@ -18,26 +18,42 @@ const Home = () => {
           </h1>
           <p className="base:text-2xl tab:text-4xl tab:w-[80%] font-[600] text-[#838383] tab:leading-[50px]">
             Utilizes eye <span className="text-primary">blinking</span>, facial{" "}
-            <span className="text-primary">expressions</span>, <br/> and lip{" "}
-            <span className="text-primary">syncing</span> to
-            identify deepfakes.
+            <span className="text-primary">expressions</span>, <br /> and lip{" "}
+            <span className="text-primary">syncing</span> to identify deepfakes.
           </p>
         </div>
-        <img src="/images/landingtest.png" alt='meow' className="w-[1000px] select-none tab:flex base:hidden h-[600px] absolute top-[-20px] right-[-200px]"/>
+        <img
+          src="/images/landingtest.png"
+          alt="meow"
+          className="w-[1000px] select-none tab:flex base:hidden h-[600px] absolute top-[-20px] right-[-200px]"
+        />
         <div className="flex items-center gap-[50px] base:px-[20px] base:py-[10px] tab:py-[5px] tab:px-[0px] ">
           <Button
-            className="bg-white font-[600] text-primary text-[0.9rem] hover:bg-white rounded-[30px] min-w-[150px] 
+            className="bg-white font-[600] base:hidden bl:flex text-primary text-[0.9rem] hover:bg-white rounded-[30px] min-w-[150px] 
           py-[18px] px-[10px] max-w-[160px] min-h-[50px] max-h-auto hover:bg-primary hover:text-white transition duration-200 ease "
             onClick={(e) => Scroll("deepfake")}
           >
             GET STARTED
           </Button>
-          <h2 className="text-[#838383] flex hover:text-primary cursor-pointer items-center justify-center gap-2">Learn more <ArrowDown size={20}/></h2>
+          <Link href='/detect'
+            className="bg-white font-[600] base:flex justify-center items-center bl:hidden text-primary text-[0.9rem]  rounded-[30px] min-w-[150px] 
+          py-[18px] px-[10px] max-w-[160px] min-h-[50px] max-h-auto hover:bg-primary hover:text-white transition duration-200 ease "
+          >
+            GET STARTED
+          </Link>
+          <h2 className="text-[#838383] flex hover:text-primary cursor-pointer items-center justify-center gap-2">
+            Learn more <ArrowDown size={20} />
+          </h2>
         </div>
         <div className="absolute bottom-[40px]  w-full flex justify-center items-center ">
-          <CircleChevronDown size={28} color="white" className="hover:scale-105 cursor-pointer" onClick={(e)=>{
-            Scroll('feature')
-          }} />
+          <CircleChevronDown
+            size={28}
+            color="white"
+            className="hover:scale-105 cursor-pointer"
+            onClick={(e) => {
+              Scroll("feature");
+            }}
+          />
         </div>
       </div>
     </div>
