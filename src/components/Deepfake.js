@@ -11,13 +11,26 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ColorRing } from "react-loader-spinner";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
-import { RotateCcw, Copy, Loader2 } from "lucide-react";
+import { RotateCcw, Copy, Loader2 , X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import {
   Card,
@@ -29,6 +42,7 @@ import {
 } from "@/components/ui/card";
 import { Scissors, Trash2 } from "lucide-react";
 import TrimComp from "./videoTrim/trim";
+import SocialComp from './chooseSocial/social'
 import { getFirstFrameImageURL } from "@/utils/getFirstImage";
 const Deepfake = () => {
   const { toast } = useToast();
@@ -287,12 +301,12 @@ const Deepfake = () => {
       }
       const videoBlob = await response.blob();
       const retrievedfile = blobToFile(videoBlob, "file_from_link.mp4");
-      setVideoObject(retrievedfile)
+      setVideoObject(retrievedfile);
       const videoUrlObject = window.URL.createObjectURL(videoBlob);
       setVideoUrl(videoUrlObject);
-      
-      const thumb = await getFirstFrameImageURL(retrievedfile)
-      setThumbnail(thumb)
+
+      const thumb = await getFirstFrameImageURL(retrievedfile);
+      setThumbnail(thumb);
 
       const data = new FormData();
       data.append("file", videoBlob);
@@ -321,7 +335,6 @@ const Deepfake = () => {
         className="left h-full !gap-[45px]  flex flex-col justify-center items-center w-[45%] "
         id="left"
       >
-
         {/* {videoUrl ? (
           <motion.video
             initial={{ scale: 0 }}
@@ -357,7 +370,7 @@ const Deepfake = () => {
               setreaction(-1);
               handleClick();
               setresult(null);
-              setThumbnail(null)
+              setThumbnail(null);
               e.stopPropagation();
             }}
           >
@@ -516,8 +529,8 @@ const Deepfake = () => {
               onChange={handleFileChange}
             />
             <p>Upto 30 mb of video & mp4 format only!</p>
-            <Dialog open={getURLOpen} onOpenChange={setGetURLOpen}>
-              <DialogTrigger asChild>
+            <AlertDialog open={getURLOpen} onOpenChange={setGetURLOpen}>
+              <AlertDialogTrigger asChild>
                 <p
                   onClick={(e) => {
                     e.preventDefault();
@@ -527,15 +540,21 @@ const Deepfake = () => {
                 >
                   Enter URL
                 </p>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] !bg-card">
-                <DialogHeader>
-                  <DialogTitle>Enter Video URL</DialogTitle>
-                  <DialogDescription>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="sm:max-w-[425px] !bg-card">
+                <div className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                  <X className="h-5 w-5 cursor-pointer" onClick={(e)=>{
+                    setGetURLOpen(false)
+                  }} />
+                  <span className="sr-only">Close</span>
+                </div>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Enter Video URL</AlertDialogTitle>
+                  <AlertDialogDescription>
                     Make sure to upload a link which is public to everyone. and
                     size ot more than 30 mb.
-                  </DialogDescription>
-                </DialogHeader>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="name" className="text-right">
@@ -549,8 +568,9 @@ const Deepfake = () => {
                     />
                   </div>
                 </div>
-                <DialogFooter className="gap-[25px]">
-                  <div className="flex justify-center items-center gap-[18px]">
+                <AlertDialogFooter className="gap-[25px]">
+                  <SocialComp setlinkName={setlinkName} />
+                  {/* <div className="flex justify-center items-center gap-[18px]">
                     <div
                       className={` ${
                         linkName === "youtube"
@@ -599,10 +619,10 @@ const Deepfake = () => {
                         className={`rounded-full  cursor-pointer`}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <Button
                     disabled={loadURLFetch}
-                    className="flex justify-center items-center gap-1"
+                    className="flex justify-center mt-5 items-center gap-1"
                     onClick={(e) => {
                       e.preventDefault();
                       URLFetch();
@@ -613,9 +633,9 @@ const Deepfake = () => {
                     )}
                     Upload
                   </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </motion.div>
           <motion.div
             className="down border-t-[2px] border-dashed"

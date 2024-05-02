@@ -9,7 +9,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Scissors } from 'lucide-react'
+import { Scissors , X } from 'lucide-react'
 import VideoTrim from './videoApp'
 import {
     AlertDialog,
@@ -22,20 +22,20 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-const Trim = ({ setThumbnail, video, setExtractMeta, setPassedAudioDataUrl, setVideo, setVideoObject , setVideoUrl }: {
+const Trim = ({ setThumbnail, video, setExtractMeta, setPassedAudioDataUrl, setVideo, setVideoObject, setVideoUrl }: {
     setThumbnail: any,
     video: any,
     setExtractMeta: any,
     setPassedAudioDataUrl: any,
     setVideo: any,
     setVideoObject: any,
-    setVideoUrl:any,
+    setVideoUrl: any,
 }) => {
     const [open, setopen] = useState<boolean>(false)
-    return ( 
-        <Dialog open={open} onOpenChange={setopen} >
-            <DialogTrigger asChild>
-                <Button onClick={(e)=>{
+    return (
+        <AlertDialog open={open} onOpenChange={setopen} >
+            <AlertDialogTrigger asChild>
+                <Button onClick={(e) => {
                     setopen(true)
                 }}
                     variant="outline"
@@ -44,19 +44,25 @@ const Trim = ({ setThumbnail, video, setExtractMeta, setPassedAudioDataUrl, setV
                     <Scissors size={19} color="white" />
                     Trim
                 </Button>
-            </DialogTrigger>
-            <DialogContent className="w-[100%] min-h-[min(90vh,800px)] flex flex-col gap-[10px]">
-                <DialogHeader>
-                    <DialogTitle>Trim your video</DialogTitle>
-                    <DialogDescription>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="w-[100%] min-h-[min(90vh,800px)] flex flex-col gap-[10px]">
+                <div className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                    <X className="h-5 w-5 cursor-pointer" onClick={(e) => {
+                        setopen(false)
+                    }} />
+                    <span className="sr-only">Close</span>
+                </div>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Trim your video</AlertDialogTitle>
+                    <AlertDialogDescription>
                         Remove unnecessary clips from the video and submit the trimmed version of video
-                    </DialogDescription>
-                </DialogHeader>
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
                 <div className='flex w-full h-[calc(100%_-_5rem)]'>
                     <VideoTrim setVideoUrl={setVideoUrl} setopen={setopen} setVideo={setVideo} setVideoObject={setVideoObject} setPassedAudioDataUrl={setPassedAudioDataUrl} video={video} fileImage={setThumbnail} setExtractMeta={setExtractMeta} />
                 </div>
-            </DialogContent>
-        </Dialog>
+            </AlertDialogContent>
+        </AlertDialog>
 
     )
 }

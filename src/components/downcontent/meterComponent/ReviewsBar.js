@@ -20,7 +20,7 @@ const ReviewsBar = (props) => {
     <ReviewsProvider  valueStart={0} valueEnd={score}>
       {(value) => (
         <CircularProgressbar 
-        className=' h-[90%] !flex !justify-center mt-[30px] !items-center'
+        className=' h-[90%] !flex !justify-center tab:mt-[45px] !items-center'
           value={value}
           text={`${value} %`}
           circleRatio={0.58} /* Make the circle only 0.7 of the full diameter */
@@ -40,7 +40,7 @@ const ReviewsBar = (props) => {
               fill: '#ddd',
             },
           }}
-          strokeWidth={13}
+          strokeWidth={15}
         />
       )}
     </ReviewsProvider>
