@@ -22,7 +22,12 @@ const Component = () => {
         <Beam />
         <DotPattern
           className={cn(
-            "[mask-image:radial-gradient(320px_circle_at_bottom,white,transparent)]",
+            "[mask-image:radial-gradient(320px_circle_at_bottom,white,transparent)]", "base:hidden tab:flex"
+          )}
+        />
+        <DotPattern
+          className={cn(
+            "[mask-image:radial-gradient(210px_circle_at_center,white,transparent)]", "base:flex tab:hidden"
           )}
         />
       </div>
@@ -43,7 +48,21 @@ const Component = () => {
             ]}
             className={cn(
               "[mask-image:radial-gradient(150px_circle_at_center,white,transparent)]",
-              "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12",
+              "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 base:hidden tab:flex",
+            )}
+          />
+          <GridPattern
+            squares={[
+              [3, 9],
+              [4, 7],
+              [5, 10],
+              [6, 13],
+              [2, 13],
+              [18, 6],
+            ]}
+            className={cn(
+              "[mask-image:radial-gradient(180px_circle_at_center,white,transparent)]",
+              "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 base:flex tab:hidden",
             )}
           />
         </div>
