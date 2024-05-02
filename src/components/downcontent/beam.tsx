@@ -18,7 +18,7 @@ export default function AnimatedBeamMultipleInputDemo() {
 
     return (
         <div
-            className="relative flex h-full w-[50%]  items-center justify-center overflow-hidden rounded-lg  bg-[#2a2a2a] p-10 "
+            className="relative flex tab:h-full base:w-full tab:w-[50%]  items-center justify-center overflow-hidden rounded-lg  bg-[#2a2a2a] p-10 "
             ref={containerRef}
         >
             <div className="flex h-full w-full flex-row items-stretch justify-between gap-10">
