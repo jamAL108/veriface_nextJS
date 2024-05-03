@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/tooltip"
 
 
-import { Highlighter, ArrowLeft, ScissorsLineDashed } from 'lucide-react';
+import { Highlighter, ArrowLeft, ScissorsLineDashed, CircleHelp } from 'lucide-react';
 const FF = createFFmpeg({
   log: false,
   corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
@@ -49,6 +49,8 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
   const [clipTitle, setClipTitle] = useState('Your Clip Title');
   const [loadingText, setLoadingText] = useState("Loading...");
   const videoRef = useRef(null);
+
+  const [processingType, setProcessingType] = useState('select')
 
 
   useEffect(() => {
@@ -313,6 +315,97 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
     }
   };
 
+
+
+  const removeAndMergeVideo = async () => {
+    try {
+      // Calculate the duration of the clip to be removed
+      const clipStart = rStart / 100 * videoMeta.duration;
+      const clipEnd = rEnd / 100 * videoMeta.duration;
+      const durationBeforeClip = clipStart;
+      const durationAfterClip = videoMeta.duration - clipEnd;
+      const clipDuration = clipEnd - clipStart;
+
+      if (10 > clipDuration > 5) {
+        setLoadingText(`Your Video is ${(clipDuration / 60).toFixed(0)} Minutes => Process Time May Take About 30 secounds`)
+      } else if (clipDuration > 10) {
+        setLoadingText(`Your Video is ${(clipDuration / 60).toFixed(0)} Minutes => Process Time May Take About 45 secounds`)
+      } else if (clipDuration < 5) {
+        setLoadingText(`Your Video is ${(clipDuration / 60).toFixed(0)} Minutes => Process Time May Take About 15 secounds`)
+      } else {
+        setLoadingText(`Loading...`)
+      }
+      setTrimIsProcessing(true);
+      setShow(false);
+      if (deletedState == false) {
+        setDeletedState(!deletedState)
+      }
+      setShowBtn(false);
+      setSaveBtn(true);
+
+      FF.FS("writeFile", inputVideoFile.name, await fetchFile(inputVideoFile));
+      await FF.run(
+        "-ss", "0",
+        "-i", inputVideoFile.name,
+        "-t", helpers.toTimeString(clipStart),
+        "-c", "copy",
+        "trimmed_start.mp4"
+      );
+
+      // Trim the video from the end to the end point
+      await FF.run(
+        "-ss", helpers.toTimeString(clipEnd),
+        "-i", inputVideoFile.name,
+        "-c", "copy",
+        "trimmed_end.mp4"
+      );
+
+      const trimmedStartData = FF.FS("readFile", "trimmed_start.mp4");
+      const trimmedEndData = FF.FS("readFile", "trimmed_end.mp4");
+
+      if (!trimmedStartData || !trimmedEndData) {
+        throw new Error("Trimmed video files not found.");
+      }
+      await FF.run(
+        "-i", "trimmed_start.mp4",
+        "-i", 'trimmed_end.mp4',
+        "-filter_complex", "[0:v:0][1:v:0]concat=n=2:v=1:a=0[outv]",
+        "-map", "[outv]",
+        "merged_video.mp4"
+      );
+
+      const mergedData = FF.FS("readFile", "merged_video.mp4");
+
+
+      if (!mergedData) {
+        throw new Error("Merged video file not found.");
+      }
+
+
+      console.log(mergedData)
+      await setVideoSize(mergedData);
+      await handleAudioTrim()
+
+      // Convert merged data to Blob
+      const mergedBlob = new Blob([mergedData], { type: "video/mp4" });
+
+      // Convert Blob to File object
+      const mergedVideoFile = new File([mergedBlob], "merged_video.mp4", { type: "video/mp4" });
+      getFirstFrameImageURL(mergedVideoFile)
+      setInputVideoFile(mergedVideoFile);
+
+      const mergedDataURL = window.URL.createObjectURL(mergedBlob)
+      setURL(mergedDataURL);
+
+    } catch (error) {
+      console.error("Error removing and merging video:", error);
+      throw error;
+    } finally {
+      setTrimIsProcessing(false);
+    }
+  };
+
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -362,6 +455,29 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
 
         <section className="flex flex-col items-center mt-[10px] w-full">
           <article className="w-full  flex flex-col items-center justify-center">
+            {show ?
+              <div className="w-full flex justify-end items-center mb-[15px]">
+                <div className="w-[100px] justify-center   flex items-center">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <CircleHelp size={16} className="cursor-pointer ml-[40px]" color="blue" />
+                      </TooltipTrigger>
+                      <TooltipContent className="!max-w-[40px] w-[40px] text-center text-xs" side="left">
+                        <p className="!max-w-[90px] !text-xs !text-center" >Choose whether to Remove clips or Select clips</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <Button onClick={(e) => {
+                  if (processingType !== 'remove') setProcessingType('remove')
+                }} className={`rounded-none px-[20px] !rounded-l-xl ${processingType === 'remove' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Remove</Button>
+                <Button onClick={(e) => {
+                  if (processingType !== 'select') setProcessingType('select')
+                }} className={`rounded-none px-[20px] !rounded-r-xl ${processingType === 'select' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Select</Button>
+              </div>
+              : null
+            }
             {trimIsProcessing ? <h4>{loadingText}</h4> : null}
             {show ?
               <div className="w-full h-[290px]  overflow-hidden">
@@ -385,7 +501,6 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
         </section>
 
         {<div className="w-full relative">
-
           <RangeInput
             rEnd={rEnd}
             rStart={rStart}
@@ -395,19 +510,6 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
             videoMeta={videoMeta}
             thumbNails={thumbnails}
           />
-
-          {/* {backState ?
-            <RangeInput
-              rEnd={rEnd}
-              rStart={rStart}
-              handleUpdaterStart={handleUpdateRange(setRstart)}
-              handleUpdaterEnd={handleUpdateRange(setRend)}
-              loading={thumbnailIsProcessing}
-              videoMeta={videoMeta}
-              thumbNails={thumbnails}
-            /> : null
-          } */}
-
         </div>}
 
       </main> : null
@@ -441,7 +543,11 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
               <TooltipTrigger asChild>
                 <Button
                   className="px-[25px]"
-                  onClick={handleTrim}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (processingType === 'select') handleTrim()
+                    else if (processingType === 'remove') removeAndMergeVideo()
+                  }}
                   disabled={trimIsProcessing}
                 >
                   {thumbnailIsProcessing === false ? <ScissorsLineDashed className="mr-2 h-4 w-4" /> : " Loading..."}
