@@ -30,8 +30,8 @@ export default function RangeInput({
   }
   return (
     <>
-      <div className="w-[100%] h-[40px] flex">
-        <div className="image_box flex w-[100%] justify-between max-w-[100%]">
+      <div className="w-[100%] base:h-[35px] bl:h-[40px] flex">
+        <div className="image_box flex w-[100%] justify-between overflow-hidden  max-w-[100%]">
           {thumbNails.map((imgURL, id) => (
             <img src={imgURL} className="flex-1 select-none object-contain h-full" alt={`sample_video_thumbnail_${id}`} key={id} />
           ))}

@@ -453,7 +453,7 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
       {videoAppShow ? <main className="w-full flex flex-col gap-[20px]">
 
 
-        <section className="flex flex-col items-center mt-[10px] w-full">
+        <section className="flex flex-col items-center base:mt-[30px] bl:mt-[-10px] w-full">
           <article className="w-full  flex flex-col items-center justify-center">
             {show ?
               <div className="w-full flex justify-end items-center mb-[15px]">
@@ -463,27 +463,27 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
                       <TooltipTrigger asChild>
                         <CircleHelp size={16} className="cursor-pointer ml-[40px]" color="blue" />
                       </TooltipTrigger>
-                      <TooltipContent className="!max-w-[40px] w-[40px] text-center text-xs" side="left">
-                        <p className="!max-w-[90px] !text-xs !text-center" >Choose whether to Remove clips or Select clips</p>
+                      <TooltipContent className="!max-w-[120px] w-[120px] text-center text-xs" side="left">
+                        <p className="!max-w-[120px] !text-xs !text-center" >Choose whether to Remove clips or Select clips</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 </div>
                 <Button onClick={(e) => {
                   if (processingType !== 'remove') setProcessingType('remove')
-                }} className={`rounded-none px-[20px] !rounded-l-xl ${processingType === 'remove' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Remove</Button>
+                }} className={`rounded-none px-[20px] !rounded-l-lg ${processingType === 'remove' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Remove</Button>
                 <Button onClick={(e) => {
                   if (processingType !== 'select') setProcessingType('select')
-                }} className={`rounded-none px-[20px] !rounded-r-xl ${processingType === 'select' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Select</Button>
+                }} className={`rounded-none px-[20px] !rounded-r-lg ${processingType === 'select' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Select</Button>
               </div>
               : null
             }
             {trimIsProcessing ? <h4>{loadingText}</h4> : null}
             {show ?
-              <div className="w-full h-[290px]  overflow-hidden">
+              <div className="w-full base:h-[230px] bl:h-[290px]  overflow-hidden">
                 <video
                   ref={videoRef}
-                  className='w-full h-full border object-fit'
+                  className='w-full base:h-full bl:h-full border object-fit'
                   src={inputVideoFile ? URL : null}
                   autoPlay
                   controls
@@ -516,7 +516,7 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
       }
 
       {showBtn ?
-        <div className="flex items-center min-w-[80px] max-w-[200px] justify-center gap-[15px] w-full">
+        <div className="flex items-center bl:min-w-[80px] bl:max-w-[200px] justify-center base:mt-[20px] bl:mt-[-5px] gap-[15px] w-full">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>

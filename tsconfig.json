@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/creator.js", "src/components/Home.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/creator.js", "src/components/Home.js", "src/components/videoTrim/trimForMobile.tsx"],
   "exclude": ["node_modules"]
 }

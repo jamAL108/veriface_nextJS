@@ -11,7 +11,12 @@ import {
     DialogTrigger,
     DialogFooter,
 } from "@/components/ui/dialog";
-
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -41,7 +46,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Scissors, Trash2 } from "lucide-react";
-import TrimComp from "@/components/videoTrim/trim";
+import TrimComp from "@/components/videoTrim/trimForMobile";
 import SocialComp from '@/components/chooseSocial/social'
 import { getFirstFrameImageURL } from "@/utils/getFirstImage";
 
@@ -274,7 +279,7 @@ const Deepfake = () => {
     }
 
     useEffect(() => {
-        if(result!==null){
+        if (result !== null) {
             console.log(result)
         }
     }, [result])
@@ -374,150 +379,167 @@ const Deepfake = () => {
                                     }}>
                                         Detect
                                     </Button>
-                                    <Button className='px-[20px] text-destructive flex justify-center items-center gap-2' variant='outline' onClick={(e) => {
-                                        e.preventDefault()
-                                        setvideo(null);
-                                        setVideoUrl(null);
-                                        setflag(false);
-                                        setVideoObject(null)
-                                        setreaction(-1);
-                                        setresult(null);
-                                        setThumbnail(null);
-                                    }} >
-                                        <Trash2 size={17} />
-                                        Remove
-                                    </Button>
-                                </>
-                            )}
-                            {api === true && (
-                                <Button variant="outline"
-                                    className="border bg-transparent border-primary text-primary  transition duration-500 ease hover:bg-primary hover:text-white px-[25px]"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        cancelrequest();
-                                        setvideo(null);
-                                        setVideoUrl(null);
-                                        setflag(false);
-                                        setVideoObject(null)
-                                        setThumbnail(null)
-                                        setreaction(-1);
-                                        setresult(null)
-                                        setapi(false);
-                                    }}>
-                                    Cancel
-                                </Button>
-                            )}
-                        </div>
-                        <div className='w-full flex flex-col py-[10px] gap-[20px]' id='ActivitySection'>
-                            {thumbnail && (
-                                <>
-                                    <motion.img
-                                        initial={{ scale: 0 }}
-                                        viewport={{ once: true }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        transition={{ duration: 1 }}
-                                        src={thumbnail}
-                                        alt="thumbnail"
-                                        className="videowalaMobile relative border opacity-1 w-full rounded-lg !h-[210px] object-contain bg-background z-1"
+                                    <TrimComp
+                                        setVideo={setvideo}
+                                        setVideoObject={setVideoObject}
+                                        setPassedAudioDataUrl={setPassedAudioDataUrl}
+                                        video={videoObject}
+                                        setThumbnail={setThumbnail}
+                                        setExtractMeta={setExtractMeta}
+                                        setVideoUrl={setVideoUrl}
                                     />
-                                    {reaction !== -1 && (
-                                        <div className="w-full z-[10000] h-[50px] flex justify-end mt-[-70px] mr-[-25px]">
-                                            <img src={arr_emoji[status]} alt="fv" className="w-[85px] h-[85px]" />
-                                        </div>
-                                    )}
-                                    <div className="imageMobile">
-                                        <img src="./images/load.png" alt="" className="imgMobile hidden" id="immg" />
-                                    </div>
-                                </>
-                            )}
-                            {result && (
-                                <Card
-                                    className="w-full rounded-lg"
-                                >
-                                    <CardHeader className="flex flex-row items-start bg-muted/50">
-                                        <div className="grid gap-1.5">
-                                            <CardTitle
-                                                className="group flex items-center gap-2 text-lg w-full text-[0.96rem] leading-[26px]"
-                                                style={
-                                                    result.Faces === 0
-                                                        ? { color: "#ff3333", opacity: 1 }
-                                                        : { fontSize: "1.3rem" }
-                                                }
-                                            >
-                                                {result.message}
-                                                <Button
-                                                    size="icon"
-                                                    variant="outline"
-                                                    className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
-                                                >
-                                                    <Copy className="h-3 w-3" />
-                                                    <span className="sr-only">copy</span>
-                                                </Button>
-                                            </CardTitle>
-                                            <CardDescription className="text-xs">
-                                                As Veriface is in beta, the results aren't absolute truth ,
-                                                don't consider this as an evidence.
-                                            </CardDescription>
-                                        </div>
-                                        <div className="ml-auto flex items-center gap-1">
-                                            <Button
-                                                size="sm"
-                                                variant="outline"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setresult(null);
-                                                    API(video);
-                                                    setflag(true);
-                                                    setreaction(-1);
-                                                }}
-                                                className="h-8 gap-1"
-                                            >
-                                                <RotateCcw className="h-3.5 w-3.5" />
-                                                <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                                                    Retry
-                                                </span>
+                                    <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Button className='px-[16px] text-destructive hover:bg-card/40 flex justify-center items-center gap-2' variant='outline' onClick={(e) => {
+                                                e.preventDefault()
+                                                setvideo(null);
+                                                setVideoUrl(null);
+                                                setflag(false);
+                                                setVideoObject(null)
+                                                setreaction(-1);
+                                                setresult(null);
+                                                setThumbnail(null);
+                                            }} >
+                                                <Trash2 size={18} />
                                             </Button>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent className="p-6 text-sm bg-card">
-                                        <div className="grid gap-3">
-                                            <div className="font-semibold">Details</div>
-                                            <ul className="grid gap-3">
-                                                <li className="flex items-center justify-between">
-                                                    <span className="text-muted-foreground">Total Frames</span>
-                                                    <span>{result.Frames}</span>
-                                                </li>
-                                                <li className="flex items-center justify-between">
-                                                    <span className="text-muted-foreground">
-                                                        Total Faces in those frames
-                                                    </span>
-                                                    <span>{result.Faces}</span>
-                                                </li>
-                                            </ul>
-                                            <Separator className="my-2" />
-                                            <ul className="grid gap-3">
-                                                <li className="flex items-center justify-between">
-                                                    <span className="text-muted-foreground">
-                                                        Total Deepfake Faces %
-                                                    </span>
-                                                    <span>{result.Deepfake.toFixed(2)}%</span>
-                                                </li>
-                                                <li className="flex items-center justify-between">
-                                                    <span className="text-muted-foreground">
-                                                        Total Real Faces %
-                                                    </span>
-                                                    <span>{result.Real.toFixed(2)}%</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </CardContent>
-                                </Card>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Remove</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                        </>
                             )}
-                        </div>
-                    </CardContent>
-                </Card>
+                        {api === true && (
+                            <Button variant="outline"
+                                className="border bg-transparent border-primary text-primary  transition duration-500 ease hover:bg-primary hover:text-white px-[25px]"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    cancelrequest();
+                                    setvideo(null);
+                                    setVideoUrl(null);
+                                    setflag(false);
+                                    setVideoObject(null)
+                                    setThumbnail(null)
+                                    setreaction(-1);
+                                    setresult(null)
+                                    setapi(false);
+                                }}>
+                                Cancel
+                            </Button>
+                        )}
+                    </div>
+                    <div className='w-full flex flex-col py-[10px] gap-[20px]' id='ActivitySection'>
+                        {thumbnail && (
+                            <>
+                                <motion.img
+                                    initial={{ scale: 0 }}
+                                    viewport={{ once: true }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 1 }}
+                                    src={thumbnail}
+                                    alt="thumbnail"
+                                    className="videowalaMobile relative border opacity-1 w-full rounded-lg !h-[210px] object-contain bg-background z-1"
+                                />
+                                {reaction !== -1 && (
+                                    <div className="w-full z-[10000] h-[50px] flex justify-end mt-[-70px] mr-[-25px]">
+                                        <img src={arr_emoji[status]} alt="fv" className="w-[85px] h-[85px]" />
+                                    </div>
+                                )}
+                                <div className="imageMobile">
+                                    <img src="./images/load.png" alt="" className="imgMobile hidden" id="immg" />
+                                </div>
+                            </>
+                        )}
+                        {result && (
+                            <Card
+                                className="w-full rounded-lg"
+                            >
+                                <CardHeader className="flex flex-row items-start bg-muted/50">
+                                    <div className="grid gap-1.5">
+                                        <CardTitle
+                                            className="group flex items-center gap-2 text-lg w-full text-[0.96rem] leading-[26px]"
+                                            style={
+                                                result.Faces === 0
+                                                    ? { color: "#ff3333", opacity: 1 }
+                                                    : { fontSize: "1.3rem" }
+                                            }
+                                        >
+                                            {result.message}
+                                            <Button
+                                                size="icon"
+                                                variant="outline"
+                                                className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                                            >
+                                                <Copy className="h-3 w-3" />
+                                                <span className="sr-only">copy</span>
+                                            </Button>
+                                        </CardTitle>
+                                        <CardDescription className="text-xs">
+                                            As Veriface is in beta, the results aren't absolute truth ,
+                                            don't consider this as an evidence.
+                                        </CardDescription>
+                                    </div>
+                                    <div className="ml-auto flex items-center gap-1">
+                                        <Button
+                                            size="sm"
+                                            variant="outline"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setresult(null);
+                                                API(video);
+                                                setflag(true);
+                                                setreaction(-1);
+                                            }}
+                                            className="h-8 gap-1"
+                                        >
+                                            <RotateCcw className="h-3.5 w-3.5" />
+                                            <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
+                                                Retry
+                                            </span>
+                                        </Button>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="p-6 text-sm bg-card">
+                                    <div className="grid gap-3">
+                                        <div className="font-semibold">Details</div>
+                                        <ul className="grid gap-3">
+                                            <li className="flex items-center justify-between">
+                                                <span className="text-muted-foreground">Total Frames</span>
+                                                <span>{result.Frames}</span>
+                                            </li>
+                                            <li className="flex items-center justify-between">
+                                                <span className="text-muted-foreground">
+                                                    Total Faces in those frames
+                                                </span>
+                                                <span>{result.Faces}</span>
+                                            </li>
+                                        </ul>
+                                        <Separator className="my-2" />
+                                        <ul className="grid gap-3">
+                                            <li className="flex items-center justify-between">
+                                                <span className="text-muted-foreground">
+                                                    Total Deepfake Faces %
+                                                </span>
+                                                <span>{result.Deepfake.toFixed(2)}%</span>
+                                            </li>
+                                            <li className="flex items-center justify-between">
+                                                <span className="text-muted-foreground">
+                                                    Total Real Faces %
+                                                </span>
+                                                <span>{result.Real.toFixed(2)}%</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )}
+                    </div>
+                </CardContent>
+            </Card>
 
-            </div>
+        </div>
             {/* <div
                 className="left h-full !gap-[45px]  flex flex-col justify-center items-center w-[45%] "
                 id="left"
@@ -659,7 +681,7 @@ const Deepfake = () => {
                 )}
             </div> */}
 
-            {/* <div className="right min-w-[45%]  w-[45%] h-full relative flex flex-col justify-center items-center gap-[100px] ">
+    {/* <div className="right min-w-[45%]  w-[45%] h-full relative flex flex-col justify-center items-center gap-[100px] ">
                 <div className="w-full flex justify-center items-center">
                     <div className="h-[140px] w-[55%] px-[15px] py-[10px] bg-muted/80 border-dashed border-[3px] border-primary/10 rounded-lg flex justify-center items-center opacity-[0.5] ">
                         <p className="text-xs text-center">
@@ -831,9 +853,9 @@ const Deepfake = () => {
                     </motion.div>
                 </div>
             </div> */}
-            {/* <img src="./images/Polygon 1.png" alt="v" className="ploy" />
+    {/* <img src="./images/Polygon 1.png" alt="v" className="ploy" />
             <img src="./images/rope.png" alt="rve" className="rope" /> */}
-        </div>
+        </div >
     );
 };
 export default Deepfake;
