@@ -481,6 +481,7 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
             }
             {trimIsProcessing ? <h4>{loadingText}</h4> : null}
             {show ?
+              <>
               <div className="w-full base:hidden bl:flex h-[280px]  overflow-hidden">
                 <video
                   ref={videoRef}
@@ -511,7 +512,7 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
                 </video>
               </div>
 
-
+              </>
               
               : null
             }
