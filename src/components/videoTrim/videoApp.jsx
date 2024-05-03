@@ -28,7 +28,7 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
   const [videoMeta, setVideoMeta] = useState(null);
   const [URL, setURL] = useState(null);
   const [rStart, setRstart] = useState(0); // 0%
-  const [rEnd, setRend] = useState(10); // 10%
+  const [rEnd, setRend] = useState(20); // 10%
   const [thumbnails, setThumbnails] = useState([]);
   const [thumbnailIsProcessing, setThumbnailIsProcessing] = useState(false);
 
@@ -68,6 +68,7 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
     if (video !== null) {
       handleChange(video)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [video])
 
   const handleChange = async (file) => {
@@ -466,31 +467,31 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
                       <TooltipContent className="!max-w-[120px] w-[120px] text-center text-xs" side="left">
                         <p className="!max-w-[120px] !text-xs !text-center" >Choose whether to Remove clips or Select clips</p>
                       </TooltipContent>
-                    </Tooltip>
+                    </Tooltip>  
                   </TooltipProvider>
                 </div>
                 <Button onClick={(e) => {
                   if (processingType !== 'remove') setProcessingType('remove')
-                }} className={`rounded-none px-[20px] !rounded-l-lg ${processingType === 'remove' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Remove</Button>
+                }} className={`rounded-none px-[20px] rounded-l-lg ${processingType === 'remove' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Remove</Button>
                 <Button onClick={(e) => {
                   if (processingType !== 'select') setProcessingType('select')
-                }} className={`rounded-none px-[20px] !rounded-r-lg ${processingType === 'select' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Select</Button>
+                }} className={`rounded-none px-[20px] rounded-r-lg ${processingType === 'select' ? 'bg-primary' : 'bg-secondary hover:bg-secondary/30'} `}>Select</Button>
               </div>
               : null
             }
             {trimIsProcessing ? <h4>{loadingText}</h4> : null}
             {show ?
-              <div className="w-full base:h-[230px] bl:h-[290px]  overflow-hidden">
+              <div className="w-full base:h-[230px] bl:h-[280px]  overflow-hidden">
                 <video
                   ref={videoRef}
-                  className='w-full base:h-full bl:h-full border object-fit'
+                  className='w-full h-full border object-fit'
                   src={inputVideoFile ? URL : null}
                   autoPlay
                   controls
                   muted
                   onLoadedMetadata={handleLoadedData}
                   crossOrigin="anonymous"
-                  style={{ maxHeight: '290px' }}
+                  style={{ maxHeight: '280px' }}
                 >
                 </video>
               </div>

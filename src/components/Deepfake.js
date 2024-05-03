@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { ColorRing } from "react-loader-spinner";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
-import { RotateCcw, Copy, Loader2 , X } from "lucide-react";
+import { RotateCcw, Copy, Loader2, X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import {
   Card,
@@ -42,7 +42,7 @@ import {
 } from "@/components/ui/card";
 import { Scissors, Trash2 } from "lucide-react";
 import TrimComp from "./videoTrim/trim";
-import SocialComp from './chooseSocial/social'
+import SocialComp from "./chooseSocial/social";
 import { getFirstFrameImageURL } from "@/utils/getFirstImage";
 const Deepfake = () => {
   const { toast } = useToast();
@@ -543,9 +543,12 @@ const Deepfake = () => {
               </AlertDialogTrigger>
               <AlertDialogContent className="sm:max-w-[425px] !bg-card">
                 <div className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                  <X className="h-5 w-5 cursor-pointer" onClick={(e)=>{
-                    setGetURLOpen(false)
-                  }} />
+                  <X
+                    className="h-5 w-5 cursor-pointer"
+                    onClick={(e) => {
+                      setGetURLOpen(false);
+                    }}
+                  />
                   <span className="sr-only">Close</span>
                 </div>
                 <AlertDialogHeader>
@@ -661,6 +664,13 @@ const Deepfake = () => {
                     className="flex text-destructive px-[20px]  hover:text-destructive  justify-center items-center gap-[7px] text-[1.05rem] transition duration-500 ease hover:scale-105"
                     onClick={(e) => {
                       e.preventDefault();
+                      setvideo(null);
+                      setVideoUrl(null);
+                      setflag(false);
+                      setVideoObject(null);
+                      setreaction(-1);
+                      setresult(null);
+                      setThumbnail(null);
                     }}
                   >
                     <Trash2 size={19} />
