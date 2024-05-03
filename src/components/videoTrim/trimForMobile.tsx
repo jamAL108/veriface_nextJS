@@ -70,7 +70,7 @@ const Trim = ({ setThumbnail, video, setExtractMeta, setPassedAudioDataUrl, setV
                             Remove unnecessary clips from the video and submit the trimmed version of video
                         </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <div className='flex w-full h-[calc(100%_-_4rem)]'>
+                    <div className='flex w-full h-[calc(100%_-_4rem)] mb-[20px]'>
                         <VideoTrim setVideoUrl={setVideoUrl} setopen={setopen} setVideo={setVideo} setVideoObject={setVideoObject} setPassedAudioDataUrl={setPassedAudioDataUrl} video={video} fileImage={setThumbnail} setExtractMeta={setExtractMeta} />
                     </div>
                 </AlertDialogContent>

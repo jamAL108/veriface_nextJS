@@ -572,8 +572,7 @@ const Deepfake = () => {
                   </div>
                 </div>
                 <AlertDialogFooter className="gap-[25px]">
-                  <SocialComp setlinkName={setlinkName} />
-                  {/* <div className="flex justify-center items-center gap-[18px]">
+                  <div className="flex justify-center items-center gap-[18px]">
                     <div
                       className={` ${
                         linkName === "youtube"
@@ -622,7 +621,7 @@ const Deepfake = () => {
                         className={`rounded-full  cursor-pointer`}
                       />
                     </div>
-                  </div> */}
+                  </div>
                   <Button
                     disabled={loadURLFetch}
                     className="flex justify-center mt-5 items-center gap-1"
