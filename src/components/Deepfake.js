@@ -399,7 +399,7 @@ const Deepfake = () => {
           </div>
         )}
         {result && (
-          <motion.Card
+          <Card
             initial={{ scale: 0 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -484,7 +484,7 @@ const Deepfake = () => {
                 </ul>
               </div>
             </CardContent>
-          </motion.Card>
+          </Card>
         )}
       </div>
 

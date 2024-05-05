@@ -10,14 +10,14 @@ import Beam from '@/components/downcontent/component'
 export default function Aooo() {
   return (
     <div className="flex justify-center items-center overflow-hidden flex-col w-full">
-    <Home/>
-    <Features/>
-    <Instruction/>
-    <Deepfake/>
-    <Games/>
-    <Beam/>
-    {/* <Creator/> */}
-    <Footer/>
-   </div>
+      <Home />
+      <Features />
+      <Instruction />
+      <Beam />
+      <Deepfake />
+      <Games />
+      {/* <Creator/> */}
+      <Footer />
+    </div>
   );
 }

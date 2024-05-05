@@ -9,7 +9,7 @@ import DotPattern from "@/components/magicui/dot-pattern";
 import GridPattern from "@/components/magicui/grid";
 const Component = () => {
   return (
-    <div className='min-w-[min(1200px,90%)] w-[min(1200px , 90vw)] relative  base:max-w-[90vw] bl:max-w-[1700px] flex flex-col items-center py-[20px]  base:mt-[30px] bl:mt-[60px] overflow-hidden gap-[50px] mb-[100px]'>
+    <div className='min-w-[min(1200px,90%)] w-[min(1200px , 90vw)] relative  base:max-w-[90vw] bl:max-w-[1700px] flex flex-col items-center py-[20px]  base:mt-[30px] bl:mt-[20px] overflow-hidden gap-[50px] mb-[40px]'>
       <div className='bg-[#2a2a2a] relative base:w-full tab:w-[94%] rounded-xl  flex base:flex-col tab:flex-row tab:justify-between ' >
         <div className='base:w-full tab:w-[50%] base:p-8 tab:p-14  h-full flex flex-col'>
           <Image src='/images/importBeam.png' alt='dwscv' className='mb-[20px]' width={60} height={60} />
