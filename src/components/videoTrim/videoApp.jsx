@@ -481,7 +481,8 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
             }
             {trimIsProcessing ? <h4>{loadingText}</h4> : null}
             {show ?
-              <div className="w-full base:h-[230px] bl:h-[280px]  overflow-hidden">
+              <>
+              <div className="w-full base:hidden bl:flex h-[280px]  overflow-hidden">
                 <video
                   ref={videoRef}
                   className='w-full h-full border object-fit'
@@ -495,6 +496,24 @@ function VideoApp({ fileImage, video, setExtractMeta, setPassedAudioDataUrl, set
                 >
                 </video>
               </div>
+
+              <div className="w-full base:flex bl:hidden h-[230px]   overflow-hidden">
+                <video
+                  ref={videoRef}
+                  className='w-full h-full border object-fit'
+                  src={inputVideoFile ? URL : null}
+                  autoPlay
+                  controls
+                  muted
+                  onLoadedMetadata={handleLoadedData}
+                  crossOrigin="anonymous"
+                  style={{ maxHeight: '230px' }}
+                >
+                </video>
+              </div>
+
+              </>
+              
               : null
             }
 
