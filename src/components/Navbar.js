@@ -15,23 +15,18 @@ import { Menu } from "lucide-react";
 const Navbar = () => {
   return (
     <div className="py-[10px] min-w-[min(1400px,90%)] flex h-[5.5rem]  w-[min(1400px , 90vw)] justify-between items-center">
-      <div className="flex w-[100px] tab:justify-center items-center my-[10px]">
+      <Link href="/" className="flex w-[100px] tab:justify-center items-center my-[10px]">
         <img
           src="./images/Vlogo.png"
           alt=""
           className="base:w-[67px] select-none base:h-[57px] tab:w-[90px] tab:h-[80px]"
         />
-      </div>
+      </Link>
       <div className="px-[10px] base:hidden bl:flex items-center justify-center gap-[30px]">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            close();
-            Scroll("inst");
-          }}
+        <Link href={'/about-us'}
         >
-          Guide
-        </button>
+          About us
+        </Link>
         <Link
           href='/privacy'
         >

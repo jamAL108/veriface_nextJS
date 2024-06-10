@@ -41,7 +41,7 @@ const Home = () => {
           >
             GET STARTED
           </Link>
-          <h2 className="text-[#838383] flex hover:text-primary cursor-pointer items-center justify-center gap-2">
+          <h2 onClick={(e) => Scroll("feature")} className="text-[#838383] flex hover:text-primary cursor-pointer items-center justify-center gap-2">
             Learn more <ArrowDown size={20} />
           </h2>
         </div>

@@ -7,62 +7,71 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import Link from 'next/link'
 const footer = () => {
-  const platform = ["plans & pricing", "AI Data processing", "Enterprise"];
-  const company = ["About us", "Blog & news"];
-  const resource = ["Documentation", "Free Demo", "what's new"];
-  const legal = [
-    "Terms of Service",
-    "Privacy Policy",
-    "Cookies Policy",
-    "Data Processing",
+
+  const platform = [
+    { name: "StudyHub", link: "https://vidchat-ai.vercel.app/" },
+    { name: "Meta-tunes", link: "https://meta-tunes.vercel.app/" },
+    { name: "Soulmind", link: "https://soulmind.vercel.app/" }
   ];
+  const company = [{ name: "About us", link: "/about-us" }];
+  const resource = [
+    { name: "Demo videos", link: "" }
+  ];
+  const legal = [
+    { name: "Privacy Policy", link: "/privacy" }
+  ];
+
   return (
     <div className="!bg-black !text-white !w-[100vw] flex justify-center">
       <div className="!w-[min(1500px,100vw)]  px-[50px] py-[50px] flex flex-col gap-[30px]">
         <div className="w-full flex base:flex-col bl:flex-row  gap-[40px] bl:justify-between ">
           <div className="flex base:gap-[30px] bl:gap-[50px] base:flex-col bl:flex-row">
             <div className="flex flex-col gap-[15px]">
-              <h1 className="text-lg font-[500]">Platform</h1>
+              <h1 className="text-lg font-[500]">Other Apps</h1>
               {platform.map((item, idx) => (
-                <h2
+                <Link
+                href={item.link}
                   className="text-md capitalize hover:text-white cursor-pointer font-[400] text-muted-foreground"
                   key={idx}
                 >
-                  {item}
-                </h2>
+                  {item.name}
+                </Link>
               ))}
             </div>
             <div className="flex flex-col gap-[15px]">
-              <h1 className="text-lg font-[500]">Company</h1>
+              <h1 className="text-lg font-[500]">Veriface</h1>
               {company.map((item, idx) => (
-                <h2
+                <Link
+                href={item.link}
                   className="text-md capitalize hover:text-white cursor-pointer font-[400] text-muted-foreground"
                   key={idx}
                 >
-                  {item}
-                </h2>
+                  {item.name}
+                </Link>
               ))}
             </div>
             <div className="flex flex-col gap-[15px]">
               <h1 className="text-lg font-[500]">Resouce</h1>
               {resource.map((item, idx) => (
-                <h2
+                <Link
+                href={item.link}
                   className="text-md capitalize hover:text-white cursor-pointer font-[400] text-muted-foreground"
                   key={idx}
                 >
-                  {item}
-                </h2>
+                  {item.name}
+                </Link>
               ))}
             </div>
             <div className="flex flex-col gap-[15px]">
               <h1 className="text-lg font-[500]">Legal</h1>
               {legal.map((item, idx) => (
-                <h2
+                <Link 
+                href={item.link}
                   className="text-md capitalize font-[400] hover:text-white cursor-pointer text-muted-foreground"
                   key={idx}
                 >
-                  {item}
-                </h2>
+                  {item.name}
+                </Link>
               ))}
             </div>
           </div>
@@ -100,15 +109,15 @@ const footer = () => {
           </div>
 
           <div className="flex items-center justify-center gap-4">
-            <div className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
+            <Link href={'https://github.com/jamAL108'} className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
               <FaGithub size={18} color="white" />
-            </div>
+            </Link>
             <div className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
               <RiInstagramFill size={18} color="white" />
             </div>
-            <div className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
+            <Link href={'https://x.com/jamal_twts'} className="rounded-full w-[42px] cursor-pointer hover:bg-accent h-[42px] flex justify-center items-center border-[2px] border-[#5d5d5d] bg-[#191919]">
               <FaTwitter size={18} color="white" />
-            </div>
+            </Link>
           </div>
         </div>
       </div>
