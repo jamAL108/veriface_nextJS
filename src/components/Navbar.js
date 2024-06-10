@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/sheet";
 import Link from 'next/link'
 import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
 const Navbar = () => {
+  const pathname = usePathname()
   return (
     <div className="py-[10px] min-w-[min(1400px,90%)] flex h-[5.5rem]  w-[min(1400px , 90vw)] justify-between items-center">
       <Link href="/" className="flex w-[100px] tab:justify-center items-center my-[10px]">
@@ -60,28 +62,22 @@ const Navbar = () => {
           <div className="flex-1 w-full py-[30px]">
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
               <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                href={'/about-us'}
+                className={`flex items-center gap-3 ${pathname !==null && pathname.includes('about-us') ? 'text-primary bg-muted' : 'hover:text-primary bg-transparent text-muted-foreground'} rounded-lg px-3 py-2 transition-all`}
               >
-                Guide
+                About us
               </Link>
               <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                href="/detect"
+                className={`flex items-center gap-3 ${pathname !==null && pathname.includes('detect') ? 'text-primary bg-muted' : 'hover:text-primary bg-transparent text-muted-foreground'} rounded-lg px-3 py-2 transition-all`}
               >
                 Detect Videos
               </Link>
               <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                href="/privacy"
+                className={`flex items-center gap-3 ${pathname !==null && pathname.includes('privacy') ? 'text-primary bg-muted' : 'hover:text-primary bg-transparent text-muted-foreground'} rounded-lg px-3 py-2 transition-all`}
               >
-                Games
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-              >
-                Creators
+                Privacy & policy
               </Link>
             </nav>
           </div>
